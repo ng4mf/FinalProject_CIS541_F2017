@@ -5,53 +5,39 @@
 chan x, y;
 clock time;</declaration>
 	<template>
-		<name>Timer</name>
-		<location id="id0" x="-221" y="-187">
-			<name x="-246" y="-170">Ticking</name>
-		</location>
-		<init ref="id0"/>
-		<transition>
-			<source ref="id0"/>
-			<target ref="id0"/>
-			<label kind="assignment" x="-391" y="-212">time := time+1</label>
-			<nail x="-281" y="-178"/>
-			<nail x="-272" y="-221"/>
-		</transition>
-	</template>
-	<template>
 		<name>Controller</name>
-		<location id="id1" x="-807" y="-595">
+		<location id="id0" x="-807" y="-595">
 			<name x="-833" y="-629">Waiting</name>
 			<label kind="invariant" x="-842" y="-578">time &lt; 60</label>
 		</location>
-		<location id="id2" x="-467" y="-680">
+		<location id="id1" x="-467" y="-680">
 			<name x="-484" y="-714">UpdateTime</name>
 			<committed/>
 		</location>
-		<location id="id3" x="-476" y="-527">
+		<location id="id2" x="-476" y="-527">
 			<name x="-459" y="-544">Pacing</name>
 		</location>
-		<init ref="id1"/>
-		<transition>
-			<source ref="id3"/>
-			<target ref="id2"/>
-			<label kind="synchronisation" x="-459" y="-629">y!</label>
-		</transition>
-		<transition>
-			<source ref="id1"/>
-			<target ref="id3"/>
-			<label kind="guard" x="-646" y="-578">time == 60</label>
-		</transition>
+		<init ref="id0"/>
 		<transition>
 			<source ref="id2"/>
 			<target ref="id1"/>
+			<label kind="synchronisation" x="-459" y="-629">y!</label>
+		</transition>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id2"/>
+			<label kind="guard" x="-646" y="-578">time == 60</label>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id0"/>
 			<label kind="assignment" x="-680" y="-705">time := 0</label>
 			<nail x="-655" y="-672"/>
 			<nail x="-655" y="-672"/>
 		</transition>
 		<transition>
-			<source ref="id1"/>
-			<target ref="id2"/>
+			<source ref="id0"/>
+			<target ref="id1"/>
 			<label kind="guard" x="-663" y="-629">time &lt; 60</label>
 			<label kind="synchronisation" x="-637" y="-646">x?</label>
 			<nail x="-620" y="-603"/>
@@ -61,44 +47,44 @@ clock time;</declaration>
 		<name x="5" y="5">Heart</name>
 		<declaration>// Place local declarations here.
 </declaration>
-		<location id="id4" x="-918" y="-739">
+		<location id="id3" x="-918" y="-739">
 			<name x="-935" y="-773">Silent</name>
 		</location>
-		<location id="id5" x="-518" y="-731">
+		<location id="id4" x="-518" y="-731">
 			<name x="-552" y="-705">NaturalBeat</name>
 			<urgent/>
 		</location>
-		<location id="id6" x="-722" y="-867">
+		<location id="id5" x="-722" y="-867">
 		</location>
-		<location id="id7" x="-1105" y="-756">
-			<name x="-1147" y="-790">ArtificialBeat</name>
+		<location id="id6" x="-1105" y="-756">
+			<name x="-1156" y="-739">ArtificialBeat</name>
 			<urgent/>
 		</location>
-		<init ref="id4"/>
+		<init ref="id3"/>
 		<transition>
-			<source ref="id7"/>
-			<target ref="id6"/>
+			<source ref="id6"/>
+			<target ref="id5"/>
 			<nail x="-918" y="-867"/>
 		</transition>
 		<transition>
-			<source ref="id4"/>
-			<target ref="id7"/>
+			<source ref="id3"/>
+			<target ref="id6"/>
 			<label kind="synchronisation" x="-1020" y="-773">y?</label>
 		</transition>
 		<transition>
-			<source ref="id6"/>
-			<target ref="id4"/>
-			<label kind="guard" x="-875" y="-833">time == 0</label>
-		</transition>
-		<transition>
 			<source ref="id5"/>
-			<target ref="id6"/>
-			<label kind="synchronisation" x="-620" y="-824">x!</label>
-			<nail x="-535" y="-739"/>
+			<target ref="id3"/>
+			<label kind="guard" x="-875" y="-833">time == 0</label>
 		</transition>
 		<transition>
 			<source ref="id4"/>
 			<target ref="id5"/>
+			<label kind="synchronisation" x="-620" y="-824">x!</label>
+			<nail x="-535" y="-739"/>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id4"/>
 			<label kind="guard" x="-816" y="-637">time &gt; random(60)+38</label>
 			<nail x="-722" y="-645"/>
 		</transition>
