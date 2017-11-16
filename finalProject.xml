@@ -136,7 +136,7 @@ system Heart, Ventricle, Observer;
     </system>
 	<queries>
 		<query>
-			<formula>A[] ((Ventricle.WaitRL &amp;&amp; Ventricle.started) imply x &gt; Ventricle.VRP)</formula>
+			<formula>A[] ((Ventricle.WaitRL &amp;&amp; Ventricle.started) imply x &gt;= minVRP)</formula>
 			<comment></comment>
 		</query>
 		<query>
