@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_1.dtd'><nta><declaration>// Place global declarations here.
+clock x;
+
+broadcast chan VPace, VSense;
+
+// Measurements are in milliseconds
+const int[142,158] minVRP = 150;
+const int[492,508] maxVRP = 500;</declaration><template><name x="5" y="5">Heart</name><declaration>const int[92,108] minWait = 100;
+const int[142,158] maxWait = 150;</declaration><location id="id0" x="578" y="178"><name x="595" y="152">Idle</name><label kind="invariant" x="595" y="187">x &lt;= maxVRP</label></location><location id="id1" x="86" y="178"><name x="35" y="152">Ready</name><label kind="invariant" x="-8" y="187">x &lt;= maxWait</label></location><init ref="id1"/><transition><source ref="id0"/><target ref="id1"/><label kind="guard" x="212" y="255">x &gt;= minVRP</label><label kind="assignment" x="323" y="255">x = 0</label><nail x="510" y="279"/><nail x="162" y="279"/></transition><transition><source ref="id1"/><target ref="id0"/><label kind="synchronisation" x="263" y="42">VPace?</label><label kind="assignment" x="331" y="42">x = 0</label><nail x="162" y="67"/><nail x="502" y="67"/></transition><transition><source ref="id1"/><target ref="id0"/><label kind="guard" x="204" y="153">x &gt;= minWait</label><label kind="synchronisation" x="315" y="153">VSense!</label><label kind="assignment" x="391" y="153">x = 0</label></transition></template><template><name>Ventricle</name><declaration>// all measurements are in seconds * 100
+
+const int[1492,1508] LRI = 1500;
+const int[592,608] URI = 600;
+int[URI, LRI] HRI = LRI;
+
+int[URI, LRI] RI;
+
+bool started, natural_beat;
+</declaration><location id="id2" x="170" y="-510"><name x="178" y="-544">WaitVRP</name><label kind="invariant" x="178" y="-493">x &lt;= maxVRP</label></location><location id="id3" x="-425" y="-510"><name x="-484" y="-544">WaitRI</name><label kind="invariant" x="-484" y="-502">x &lt;= RI</label></location><init ref="id3"/><transition><source ref="id2"/><target ref="id3"/><label kind="guard" x="-272" y="-451">x &gt;= minVRP</label><label kind="assignment" x="-68" y="-450">started = true</label><nail x="119" y="-425"/><nail x="-365" y="-425"/></transition><transition><source ref="id3"/><target ref="id2"/><label kind="guard" x="-263" y="-620">x &gt;= RI</label><label kind="synchronisation" x="-170" y="-620">VPace!</label><label kind="assignment" x="-102" y="-620">x = 0, RI = LRI, natural_beat=false</label><nail x="-357" y="-595"/><nail x="119" y="-595"/></transition><transition><source ref="id3"/><target ref="id2"/><label kind="synchronisation" x="-170" y="-535">VSense?</label><label kind="assignment" x="-85" y="-535">x = 0, RI = URI, natural_beat=true</label></transition></template><template><name>Observer</name><declaration>int vstarted, tv;</declaration><location id="id4" x="-170" y="-246"><name x="-238" y="-280">VSensed</name><committed/></location><location id="id5" x="110" y="-25"><name x="127" y="-42">VPaced</name><committed/></location><location id="id6" x="-170" y="-25"><name x="-238" y="-34">WaitRL</name></location><init ref="id6"/><transition><source ref="id5"/><target ref="id6"/><label kind="assignment" x="-93" y="34">vstarted = 0, tv = 0</label><nail x="-34" y="34"/></transition><transition><source ref="id4"/><target ref="id6"/><label kind="assignment" x="-102" y="-144">vstarted = 0, tv = 0</label><nail x="-110" y="-127"/></transition><transition><source ref="id6"/><target ref="id4"/><label kind="synchronisation" x="-238" y="-144">VSense?</label></transition><transition><source ref="id6"/><target ref="id5"/><label kind="synchronisation" x="-51" y="-51">VPace?</label></transition></template><system>// Place template instantiations here.
+// Process = Template();
+// List one or more processes to be composed into a system.
+system Heart, Ventricle, Observer;
+    </system></nta>
