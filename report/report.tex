@@ -18,8 +18,8 @@
 
 \begin{document}
 
-\title{\vspace{-2.0cm}Milestone 1 - Modeling}
-\author{Neeraj Gandhi, Ramneet Kaur, Abhijeet Singh, Nikhil Shenoy}
+\title{\vspace{-2.0cm}Pacemaker Project Report}
+\author{By: Neeraj Gandhi, Ramneet Kaur, Abhijeet Singh, Nikhil Shenoy}
 \date{\today}
 
 \maketitle
@@ -36,29 +36,34 @@
 			\caption{The Heart Model}
 		\end{figure}
 
-		The Heart starts out in the Ready state. The middle arrow is a transition that occurs if the Heart beats normally. The transition described by the top-most arrow occurs when the pacemaker provides a stimulus to the Heart. Finally, the state machine travels back to the state in which it expects to receive a heartbeat (either natural or artificial) when the clock x is greater than or equal to the minimum VRP and less than or equal to the maximum VRP.
-
+The Heart starts in the Ready state. It can either beat naturally (when it sends VSense!) or it can beat as a result of a simulated signal that the pacemaker sends (hence the synchronization with VPace?). The values for minWait and maxWait were selected based on estimations of what seemed reasonable, but they can be changed if other values are more appropriate.
 
 	\subsection{Ventricle}
 		\begin{figure}[h]
-			\includegraphics[scale=.35]{ventricle_model.jpg}
+			\includegraphics[scale=.4]{ventricle_model.jpg}
 			\label{ventricle_model}
 			\centering
 			\caption{The Ventricle Model}
 		\end{figure}
 
-		The Ventricle starts in the WaitRI state. Here, it waits to sense the occurrence of a natural heartbeat within a certain time frame, and if the time bound is exceeded it sends a stimulus to the heart. The Ventricle then moves into the WaitVRP state, which is a period during which no signals can be received. Once the VRP, bounded by minVRP and maxVRP, has elapsed, the Ventricle will return to the WaitRI state and wait for Sense signals.
+The Ventricle starts in the WaitRI state. Here, it waits to sense the occurrence of a natural heartbeat within a certain time frame, and if the time bound is exceeded it sends a stimulus to the heart. The Ventricle then moves into the WaitVRP state, which is a period during which no signals can be received. Once the VRP has elapsed, the Ventricle will return to the WaitRI state and wait for Sense signals. If this is the first cycle, a boolean called “started” will be set to true.
 
+We have implemented hysteresis pacing in this model. That is, the pacemaker only sends a simulated beat when the natural beating period has surpassed HRI; after this, RI is set to LRI. The pacemaker will not cease simulated beating until the period of the patient’s heartrate is less than or equal to LRI, after which RI is reset to HRI.
+
+The URI value is used to determine if the heart is beating too fast. At this point, there is nothing that the pacemaker can do, but it can set an alarm. This functionality is provided by the PostWaitPreSense and Sensed states. These synchronize the alarm with the Observer.
 
 	\subsection{Observer}
 		\begin{figure}[h]
-			\includegraphics[scale=.35]{observer_model.jpg}
+			\includegraphics[scale=.4]{observer_model.jpg}
 			\label{observer_model}
 			\centering
 			\caption{The Observer Model}
 		\end{figure}
 
-		The Observer is used to model the external monitor of the interaction between the pacemaker and the heart. The Observer simply waits for a sensed heartbeat or a simulated heartbeat, changes states, and then changes states back. In the implementation, these state transitions would likely be logged so that if a doctor or someone else wanted to assess the health of the heart they could use the frequency of simulated heartbeats as an assessment parameter.
+The Observer is used to model the external monitor of the interaction between the pacemaker and the heart. The Observer simply waits for a sensed heartbeat or a simulated heartbeat, changes states, and then changes states back. In the implementation, these state transitions would likely be logged so that if a doctor or someone else wanted to assess the health of the heart they could use the frequency of simulated heartbeats as an assessment parameter.
+
+There is an alarm that will set the alarmSet variable if the natural beating frequency is greater than the maximum expected beating frequency (URI). We note that currently, the alarmSet variable is not triggering anything, but in the real implementation, the alarmSet variable will cause a notification to be sent to the doctor/patient.
+
 
 \section{Query Descriptions}
 
@@ -67,25 +72,35 @@
 		This is the standard deadlock query. This query makes sure that our system does not get stuck in a particular state and stop progressing.
 
 
-	\subsection{A[](Ventricle.WaitVRP \&\& Heart.Idle) imply x $<=$ maxVRP}
+	\subsection{A[] (Ventricle.x $<$ VRP \&\& Ventricle.started) imply (Ventricle.WaitVRP $||$ Ventricle.PostWaitPreSense $||$ Ventricle.Sensed)}
 
-		This query means that when both the Ventricle and Heart are in their respective waiting states (Ventricle.WaitVRP and Heart.Idle), the clock will be less than the maxVRP. By using maxVRP, we ensure that no signals are received during any possible VRP within the specification. By requiring that both Ventricle and Heart are in waiting states, we know that Sense/Pace signals will not be sent or received.
+	If the system has started, the pacemaker will always be waiting for the ventricle refractory period to expire prior to doing anything else.
 
-	\subsection{A[] ((Ventricle.WaitRI \&\& Ventricle.started \&\& !Ventricle.natural\_beat) imply Ventricle.RI $==$ Ventricle.LRI)}
+	\subsection{A[] ((Ventricle.WaitRI \&\& Ventricle.started \&\& !Ventricle.natural\_beat) imply Ventricle.x $<=$ Ventricle.LRI)}
 
-		This query states that after sending a pacing signal to the Heart, the Pacemaker will wait(at most) for the next Lower Rate Interval. This is because it is possible that the heart beats naturally within the next Lower Rate Interval after it was paced by the Pacemaker. Pacemaker(after sending a pacing signal) should therefore wait for the longest permissible interval(which is LRI) for sensing the natural heartbeat.
+	It will always be the case that if a simulated beat occurs, then the pacemaker will wait for a natural beat for the length of the LRI before continuing to pace.
 
-	\subsection{A[] ((Ventricle.WaitRI \&\& Ventricle.started \&\& Ventricle.natural\_beat) imply Ventricle.RI $==$ Ventricle.URI)}
+	\subsection{A[] ((Ventricle.WaitRI \&\& Ventricle.started \&\& Ventricle.natural\_beat) imply Ventricle.x $<=$ Ventricle.HRI)}
 
-		This query covers the case after the Pacemaker has sensed a natural beat from the heart. It would then wait for the next Upper Rate Interval to sense the natural beat. A shorter interval can be used here because a natural heart will regularly beat in intervals faster than the Lower Rate Interval.
+It will always be the case that if the heart has been beating normally, then the pacemaker will wait until the heart rate is less than hysteresis rate before intervening.
 
-	\subsection{A[] ((Ventricle.WaitRI \&\& Ventricle.started) imply x $>=$ minVRP}
+	\subsection{A[] ((Ventricle.WaitRI \&\& Ventricle.started)) imply Ventricle.x $>=$ VRP}
 
-		This query indicates that the Ventricle is started and ready to act or react based on the behavior of the Heart. It shows that the earliest the Pacemaker can act is at the end of the shortest Ventricular Refractory Period.
+	It is always the case that if the system has started and is currently waiting, the ventricle refractory period of the previous beat-cycle is complete.
 
-\section{Acknowledgements}
+	\subsection{A[] (Ventricle.x $<$ Ventricle.URI \&\& Ventricle.Sensed imply Observer.alarmSet $==$ true)}
 
-	We drew from the model specified on slide 42 of ``Pacemaker Timing Cyles-F13-F17-v3.pdf'' to create this design. These slides were made available to us through Canvas.
+	If the heart is beating faster than the upper rate limit, then an alarm will be set on the monitor. 
+
+\section{References}
+
+	\begin{enumerate}
+		\item PACEMAKER System Specification, Copyright 2007 Boston Scientific, January 3, 2007.
+		\item Pacemaker Timing Cycles-F13-F17-v3.pdf, CIS 441/541: Embedded Systems for CPS/IoT, Fall 2017 by Prof. Insup Lee, Department of Computer and Information Science, School of Engineering and Applied Science, University of Pennsylvania.
+		\item Kirk, M. \textit{Basic principles of pacing: Chapter 1}. \url{http://www.blackwellpublishing.com/content/BPL\_Images/Content\_store/Sample\_chapter/9780727915665/Chow%20Sample%20Chap%201.pdf}
+	\end{enumerate}
+
+
 	
 \end{document}
 
