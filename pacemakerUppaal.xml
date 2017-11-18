@@ -6,6 +6,8 @@ clock x;
 
 broadcast chan VPace, VSense;
 
+chan alarm;
+
 // Measurements are in milliseconds
 // VRP has to be between 150ms to 500ms
 const int VRP = 300;</declaration>
@@ -46,7 +48,7 @@ const int maxWait = 1400;</declaration>
 const int[1492,1508] LRI = 1500;
 
 // Upper bound for Rate Limit is 100bpm
-//const int[592,608] URI = 600;
+const int[592,608] URI = 600;
 
 // Hysteresis rate interval = 30bpm
 const int HRI = 2000;
@@ -65,7 +67,34 @@ bool started, natural_beat;
 			<name x="-271" y="-425">WaitRI</name>
 			<label kind="invariant" x="-271" y="-383">x &lt;= RI</label>
 		</location>
+		<location id="id3" x="-59" y="-391">
+			<committed/>
+		</location>
+		<location id="id4" x="68" y="-391">
+			<name x="58" y="-425">Sensed</name>
+			<committed/>
+		</location>
 		<init ref="id2"/>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id4"/>
+			<label kind="guard" x="-25" y="-374">x &gt;= URI</label>
+			<nail x="-42" y="-374"/>
+			<nail x="51" y="-374"/>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id4"/>
+			<label kind="guard" x="-24" y="-450">x &lt; URI</label>
+			<label kind="synchronisation" x="-24" y="-433">alarm!</label>
+			<nail x="-42" y="-408"/>
+			<nail x="51" y="-408"/>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id3"/>
+			<label kind="synchronisation" x="-144" y="-408">VSense?</label>
+		</transition>
 		<transition>
 			<source ref="id1"/>
 			<target ref="id2"/>
@@ -84,48 +113,69 @@ bool started, natural_beat;
 			<nail x="332" y="-476"/>
 		</transition>
 		<transition>
-			<source ref="id2"/>
+			<source ref="id4"/>
 			<target ref="id1"/>
-			<label kind="synchronisation" x="43" y="-416">VSense?</label>
-			<label kind="assignment" x="128" y="-416">x = 0, RI = HRI, natural_beat=true</label>
+			<label kind="assignment" x="110" y="-408">x = 0, RI = HRI, natural_beat=true</label>
+			<nail x="348" y="-391"/>
 		</transition>
 	</template>
 	<template>
 		<name>Observer</name>
-		<declaration>int vstarted, tv;</declaration>
-		<location id="id3" x="-170" y="-246">
+		<declaration>int vstarted, tv;
+
+bool alarmSet=false;</declaration>
+		<location id="id5" x="-170" y="-246">
 			<name x="-238" y="-280">VSensed</name>
 			<committed/>
 		</location>
-		<location id="id4" x="110" y="-25">
+		<location id="id6" x="110" y="-25">
 			<name x="127" y="-42">VPaced</name>
 			<committed/>
 		</location>
-		<location id="id5" x="-170" y="-25">
+		<location id="id7" x="-170" y="-25">
 			<name x="-238" y="-34">WaitRL</name>
 		</location>
-		<init ref="id5"/>
+		<init ref="id7"/>
 		<transition>
-			<source ref="id4"/>
+			<source ref="id7"/>
+			<target ref="id7"/>
+			<label kind="synchronisation" x="-195" y="34">alarm?</label>
+			<label kind="assignment" x="-221" y="51">alarmSet=true</label>
+			<nail x="-144" y="34"/>
+			<nail x="-204" y="34"/>
+		</transition>
+		<transition>
+			<source ref="id5"/>
 			<target ref="id5"/>
+			<label kind="synchronisation" x="-110" y="-259">alarm?</label>
+			<label kind="assignment" x="-110" y="-242">alarmSet=true</label>
+			<nail x="-110" y="-212"/>
+			<nail x="-110" y="-272"/>
+			<nail x="-110" y="-280"/>
+		</transition>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id7"/>
 			<label kind="assignment" x="-93" y="34">vstarted = 0, tv = 0</label>
 			<nail x="-34" y="34"/>
 		</transition>
 		<transition>
-			<source ref="id3"/>
-			<target ref="id5"/>
+			<source ref="id5"/>
+			<target ref="id7"/>
 			<label kind="assignment" x="-102" y="-144">vstarted = 0, tv = 0</label>
 			<nail x="-110" y="-127"/>
 		</transition>
 		<transition>
-			<source ref="id5"/>
-			<target ref="id3"/>
+			<source ref="id7"/>
+			<target ref="id5"/>
 			<label kind="synchronisation" x="-238" y="-144">VSense?</label>
+			<label kind="assignment" x="-289" y="-127">alarmSet=false</label>
 		</transition>
 		<transition>
-			<source ref="id5"/>
-			<target ref="id4"/>
-			<label kind="synchronisation" x="-51" y="-51">VPace?</label>
+			<source ref="id7"/>
+			<target ref="id6"/>
+			<label kind="synchronisation" x="-68" y="-42">VPace?</label>
+			<label kind="assignment" x="-85" y="-25">alarmSet=false</label>
 		</transition>
 	</template>
 	<system>// Place template instantiations here.
@@ -134,6 +184,10 @@ bool started, natural_beat;
 system Heart, Ventricle, Observer;
     </system>
 	<queries>
+		<query>
+			<formula>A[] (x&lt;Ventricle.URI &amp;&amp; Ventricle.Sensed imply Observer.alarmSet==true)</formula>
+			<comment></comment>
+		</query>
 		<query>
 			<formula>A[] not deadlock</formula>
 			<comment></comment>
