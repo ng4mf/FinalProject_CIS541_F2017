@@ -2,7 +2,7 @@
 <!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd'>
 <nta>
 	<declaration>// Place global declarations here.
-clock x;
+
 
 broadcast chan VPace, VSense;
 
@@ -14,7 +14,7 @@ const int VRP = 300;</declaration>
 	<template>
 		<name x="5" y="5">Heart</name>
 		<declaration>// Measurements are in milliseconds
-
+clock x;
 const int minWait = 900;
 const int maxWait = 1400;</declaration>
 		<location id="id0" x="280" y="144">
@@ -25,7 +25,7 @@ const int maxWait = 1400;</declaration>
 		<transition>
 			<source ref="id0"/>
 			<target ref="id0"/>
-			<label kind="guard" x="59" y="110">x &gt;= minWait</label>
+			<label kind="guard" x="42" y="110">x &gt;= minWait</label>
 			<label kind="synchronisation" x="76" y="136">VSense!</label>
 			<label kind="assignment" x="84" y="161">x = 0</label>
 			<nail x="144" y="84"/>
@@ -43,7 +43,7 @@ const int maxWait = 1400;</declaration>
 	<template>
 		<name>Ventricle</name>
 		<declaration>// all measurements are in milliseconds
-
+clock x;
 // Lower bound for Rate Limit is 40bpm
 const int[1492,1508] LRI = 1500;
 
@@ -57,7 +57,7 @@ const int HRI = 2000;
 
 int RI = HRI;
 
-bool started, natural_beat;
+bool started = false, natural_beat = true;
 </declaration>
 		<location id="id1" x="383" y="-391">
 			<name x="391" y="-425">WaitVRP</name>
@@ -68,6 +68,7 @@ bool started, natural_beat;
 			<label kind="invariant" x="-271" y="-383">x &lt;= RI</label>
 		</location>
 		<location id="id3" x="-59" y="-391">
+			<name x="-170" y="-382">PostWaitPreSense</name>
 			<committed/>
 		</location>
 		<location id="id4" x="68" y="-391">
@@ -156,13 +157,11 @@ bool alarmSet=false;</declaration>
 		<transition>
 			<source ref="id6"/>
 			<target ref="id7"/>
-			<label kind="assignment" x="-93" y="34">vstarted = 0, tv = 0</label>
 			<nail x="-34" y="34"/>
 		</transition>
 		<transition>
 			<source ref="id5"/>
 			<target ref="id7"/>
-			<label kind="assignment" x="-102" y="-144">vstarted = 0, tv = 0</label>
 			<nail x="-110" y="-127"/>
 		</transition>
 		<transition>
@@ -185,7 +184,7 @@ system Heart, Ventricle, Observer;
     </system>
 	<queries>
 		<query>
-			<formula>A[] (x&lt;Ventricle.URI &amp;&amp; Ventricle.Sensed imply Observer.alarmSet==true)</formula>
+			<formula>A[] (Ventricle.x&lt;Ventricle.URI &amp;&amp; Ventricle.Sensed imply Observer.alarmSet==true)</formula>
 			<comment></comment>
 		</query>
 		<query>
@@ -193,19 +192,19 @@ system Heart, Ventricle, Observer;
 			<comment></comment>
 		</query>
 		<query>
-			<formula>A[] (x &lt; VRP &amp;&amp; Ventricle.started) imply Ventricle.WaitVRP </formula>
+			<formula>A[] (Ventricle.x &lt; VRP &amp;&amp; Ventricle.started) imply (Ventricle.WaitVRP || Ventricle.PostWaitPreSense || Ventricle.Sensed)</formula>
 			<comment></comment>
 		</query>
 		<query>
-			<formula>A[] ((Ventricle.WaitRI &amp;&amp; Ventricle.started &amp;&amp; !Ventricle.natural_beat) imply x &lt;= Ventricle.LRI)</formula>
+			<formula>A[] ((Ventricle.WaitRI &amp;&amp; Ventricle.started &amp;&amp; !Ventricle.natural_beat) imply Ventricle.x &lt;= Ventricle.LRI)</formula>
 			<comment></comment>
 		</query>
 		<query>
-			<formula>A[] ((Ventricle.WaitRI &amp;&amp; Ventricle.started &amp;&amp; Ventricle.natural_beat) imply x &lt;= Ventricle.HRI)</formula>
+			<formula>A[] ((Ventricle.WaitRI &amp;&amp; Ventricle.started &amp;&amp; Ventricle.natural_beat) imply Ventricle.x &lt;= Ventricle.HRI)</formula>
 			<comment></comment>
 		</query>
 		<query>
-			<formula>A[] ((Ventricle.WaitRI &amp;&amp; Ventricle.started)) imply x &gt;= VRP
+			<formula>A[] ((Ventricle.WaitRI &amp;&amp; Ventricle.started)) imply Ventricle.x &gt;= VRP
 </formula>
 			<comment></comment>
 		</query>
