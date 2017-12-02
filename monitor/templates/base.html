@@ -7,23 +7,22 @@
 {% endblock %}
 
 {% block content %}
-
 <div class="container-fluid sidebar">
   <div class="row">
       <ul class="list-group col-md-2">
-        <a href="#" class="list-group-item list-group-item-action list-group-item-info"active">Patient 1</a>
-        <a href="#" class="list-group-item list-group-item-action list-group-item-info">Patient 2</a>
-        <a href="#" class="list-group-item list-group-item-action list-group-item-info"">Patient 3</a>
-        <a href="#" class="list-group-item list-group-item-action list-group-item-info"">Patient 4</a>
-        <a href="#" class="list-group-item list-group-item-action list-group-item-info"">Patient 5</a>
+        <button href="#" class="list-group-item list-group-item-action list-group-item-info active">Patient 1</button>
+        <button href="#" class="list-group-item list-group-item-action list-group-item-info">Patient 2</button>
+        <button href="#" class="list-group-item list-group-item-action list-group-item-info">Patient 3</button>
+        <button href="#" class="list-group-item list-group-item-action list-group-item-info">Patient 4</button>
+        <button href="#" class="list-group-item list-group-item-action list-group-item-info">Patient 5</button>
       </ul>
     <div class="col-8">
       <h1>Dashboard</h1>
+      {% block main %} {% endblock %}
     </div>
   </div>
 
 </div>
-
 
 
 
