@@ -1,10 +1,30 @@
 {% extends "bootstrap/base.html" %}
 {% block title %} Monitor {% endblock %}
 
+
 {% block navbar %}
 {{nav.mynavbar.render()}}
 {% endblock %}
 
 {% block content %}
+
+<div class="container-fluid sidebar">
+  <div class="row">
+      <ul class="list-group col-md-2">
+        <a href="#" class="list-group-item list-group-item-action list-group-item-info"active">Patient 1</a>
+        <a href="#" class="list-group-item list-group-item-action list-group-item-info">Patient 2</a>
+        <a href="#" class="list-group-item list-group-item-action list-group-item-info"">Patient 3</a>
+        <a href="#" class="list-group-item list-group-item-action list-group-item-info"">Patient 4</a>
+        <a href="#" class="list-group-item list-group-item-action list-group-item-info"">Patient 5</a>
+      </ul>
+    <div class="col-8">
+      <h1>Dashboard</h1>
+    </div>
+  </div>
+
+</div>
+
+
+
 
 {% endblock %}

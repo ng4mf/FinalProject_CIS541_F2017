@@ -5,6 +5,7 @@ from flask_nav.elements import *
 
 nav = Nav()
 
+# @todo Apply theme to Nav Bar
 @nav.navigation()
 def mynavbar():
     return Navbar(
