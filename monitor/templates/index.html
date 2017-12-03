@@ -1,6 +1,82 @@
 {% extends "base.html" %}
 
-{% block main %}
-<h2>Index</h2>
+{% block main_content %}
+<h1 class="page-header">Dashboard</h1>
+
+<div class="row placeholders">
+    <div class="col-xs-6 col-sm-3 placeholder">
+        <img src="{{ url_for('static', filename='nshenoy_id.jpeg') }}" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+        <h4 class="text-center">Label</h4>
+        <span class="text-muted">Something else</span>
+    </div>
+    <div class="col-xs-6 col-sm-3 placeholder">
+        <img src="{{ url_for('static', filename='nshenoy_id.jpeg') }}" width="200" height="200" class="img-rounded" alt="Generic placeholder thumbnail">
+        <h4>Label</h4>
+        <span class="text-muted">Something else</span>
+    </div>
+    <div class="col-xs-6 col-sm-3 placeholder">
+        <img src="{{ url_for('static', filename='nshenoy_id.jpeg') }}" width="200" height="200" class="img-rounded" alt="Generic placeholder thumbnail">
+        <h4>Label</h4>
+        <span class="text-muted">Something else</span>
+    </div>
+    <div class="col-xs-6 col-sm-3 placeholder">
+        <img src="{{ url_for('static', filename='nshenoy_id.jpeg') }}" width="200" height="200" class="img-rounded" alt="Generic placeholder thumbnail">
+        <h4>Label</h4>
+        <span class="text-muted">Something else</span>
+    </div>
+</div>
+
+<h2 class="sub-header">Alerts</h2>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Header</th>
+            <th>Header</th>
+            <th>Header</th>
+            <th>Header</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1000</td>
+                <td>Hello</td>
+                <td>Hello</td>
+                <td>Hello</td>
+                <td>Hello</td>
+            </tr>
+            <tr>
+                <td>1000</td>
+                <td>Hello</td>
+                <td>Hello</td>
+                <td>Hello</td>
+                <td>Hello</td>
+            </tr>
+            <tr>
+                <td>1000</td>
+                <td>Hello</td>
+                <td>Hello</td>
+                <td>Hello</td>
+                <td>Hello</td>
+            </tr>
+            <tr>
+                <td>1000</td>
+                <td>Hello</td>
+                <td>Hello</td>
+                <td>Hello</td>
+                <td>Hello</td>
+            </tr>
+            <tr>
+                <td>1000</td>
+                <td>Hello</td>
+                <td>Hello</td>
+                <td>Hello</td>
+                <td>Hello</td>
+            </tr>
+        </tbody>
+
+    </table>
+</div>
 
 {% endblock %}

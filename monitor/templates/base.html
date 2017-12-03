@@ -7,23 +7,22 @@
 {% endblock %}
 
 {% block content %}
-<div class="container-fluid sidebar">
+<div class="container-fluid">
   <div class="row">
-      <ul class="list-group col-md-2">
-        <button href="#" class="list-group-item list-group-item-action list-group-item-info active">Patient 1</button>
-        <button href="#" class="list-group-item list-group-item-action list-group-item-info">Patient 2</button>
-        <button href="#" class="list-group-item list-group-item-action list-group-item-info">Patient 3</button>
-        <button href="#" class="list-group-item list-group-item-action list-group-item-info">Patient 4</button>
-        <button href="#" class="list-group-item list-group-item-action list-group-item-info">Patient 5</button>
+    <div class="col-sm-3 col-md-2 sidebar">
+      <ul class="nav nav-sidebar">
+        <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
+        <li><a href="#">Reports</a></li>
+        <li><a href="#">Analytics</a></li>
+        <li><a href="#">Export</a></li>
       </ul>
-    <div class="col-8">
-      <h1>Dashboard</h1>
-      {% block main %} {% endblock %}
     </div>
   </div>
-
 </div>
 
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+  {% block main_content %} {% endblock %}
+</div>
 
 
 {% endblock %}
