@@ -3,27 +3,28 @@
 {% block main_content %}
 <h1 class="page-header">Dashboard</h1>
 
-<div class="row placeholders">
-    <div class="col-xs-6 col-sm-3 placeholder">
-        <img src="{{ url_for('static', filename='nshenoy_id.jpeg') }}" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-        <h4 class="text-center">Label</h4>
-        <span class="text-muted">Something else</span>
+<div class="row">
+
+    <div class="col-xs-6 col-sm-3">
+        <img src="{{ url_for('static', filename='nshenoy_id.jpeg') }}" style="display: block; margin: auto" width="200" height="200" class="img-circle" alt="Generic placeholder thumbnail">
+        <h4 style="text-align: center">Nikhil Shenoy</h4>
+        <span class="text-muted" style="text-align: center; display: block">Web Designer</span>
     </div>
-    <div class="col-xs-6 col-sm-3 placeholder">
-        <img src="{{ url_for('static', filename='nshenoy_id.jpeg') }}" width="200" height="200" class="img-rounded" alt="Generic placeholder thumbnail">
-        <h4>Label</h4>
-        <span class="text-muted">Something else</span>
+
+    <div class="col-xs-6 col-sm-3">
+        <h2>User Profile</h2>
+            <p>One</p>
+            <p>Two</p>
+            <p>Three</p>
     </div>
-    <div class="col-xs-6 col-sm-3 placeholder">
-        <img src="{{ url_for('static', filename='nshenoy_id.jpeg') }}" width="200" height="200" class="img-rounded" alt="Generic placeholder thumbnail">
-        <h4>Label</h4>
-        <span class="text-muted">Something else</span>
+
+    <div class="col-xs-6 col-sm-6">
+        <h2>Heart Rate Graph</h2>
+        <p>Place graph here</p>
     </div>
-    <div class="col-xs-6 col-sm-3 placeholder">
-        <img src="{{ url_for('static', filename='nshenoy_id.jpeg') }}" width="200" height="200" class="img-rounded" alt="Generic placeholder thumbnail">
-        <h4>Label</h4>
-        <span class="text-muted">Something else</span>
-    </div>
+
+
+
 </div>
 
 <h2 class="sub-header">Alerts</h2>
