@@ -33,7 +33,7 @@ def on_message(client, userdata, msg):
 def on_disconnect(client, userdata, rc):
     print("Closing data file...")
 
-client = mqtt.Client(client_id=uuid, clean_session=True)
+client = mqtt.Client(client_id=uuid)
 client.on_connect = on_connect
 client.on_message = on_message
 client.on_disconnect = on_disconnect
@@ -42,14 +42,6 @@ client.username_pw_set(username, password)
 client.connect(broker_address, port, 60)
 client.loop_start()
 
-
-# count = 0
-# while count != 30:
-#     client.publish(topic, count, qos=0)
-#     count += 1
-#     time.sleep(1)
-#
-# client.disconnect()
 
 
 
