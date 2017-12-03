@@ -1,24 +1,29 @@
 {% extends "bootstrap/base.html" %}
 {% block title %} Monitor {% endblock %}
 
+{% block head %}
+{{super()}}
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='sidebar.css') }}">
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='nav.css') }}">
+{% endblock %}
 
 {% block navbar %}
 {{nav.mynavbar.render()}}
 {% endblock %}
 
 {% block content %}
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-sm-3 col-md-2 sidebar">
-      <ul class="nav nav-sidebar">
-        <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-        <li><a href="#">Reports</a></li>
-        <li><a href="#">Analytics</a></li>
-        <li><a href="#">Export</a></li>
-      </ul>
-    </div>
-  </div>
+<!--Sidebar-->
+
+<div id="sidebar-wrapper">
+  <ul class="sidebar-nav">
+    <li><a href="#">Patient</a></li>
+    <li><a href="#">Patient</a></li>
+    <li><a href="#">Patient</a></li>
+    <li><a href="#">Patient</a></li>
+  </ul>
 </div>
+
+
 
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
   {% block main_content %} {% endblock %}
@@ -26,3 +31,4 @@
 
 
 {% endblock %}
+
