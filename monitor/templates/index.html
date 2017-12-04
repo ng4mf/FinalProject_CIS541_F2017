@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block scripts %}
+{{super()}}
+<!--<script src="static/graph_and_table.js"></script>-->
+
 {% block main_content %}
 <h1 class="page-header">Dashboard</h1>
 
@@ -20,7 +24,7 @@
 
     <div class="col-xs-6 col-sm-6">
         <h2>Heart Rate Graph</h2>
-        <p>Place graph here</p>
+        <div class="container-fluid" id="graph-container"></div>
     </div>
 
 

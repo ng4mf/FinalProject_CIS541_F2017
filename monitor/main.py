@@ -1,9 +1,19 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, make_response, redirect, url_for
 from flask_bootstrap import Bootstrap
 from flask_nav import Nav
 from flask_nav.elements import *
 import paho.mqtt.client as mqtt
 import time
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
+from matplotlib import style
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+import StringIO
+
+
+# Global variables for graphing
+x = [1, 2, 3, 4, 5]
+y = [5, 4, 3, 2, 1]
 
 broker_address = "35.188.242.1"
 port = 1883
@@ -14,7 +24,6 @@ uuid = "1234"
 topic = "cis541/hw-mqt/26013f37-08009003ae2a90e552b1fc8ef5001e87/echo"
 qos = 0
 
-# f = open("data.txt", "w")
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
@@ -64,6 +73,30 @@ def index():
 @app.route('/about')
 def about():
     return render_template('about.html', message='About page under construction')
+
+# @app.route('/graph')
+# def graph():
+#     # Matplotlib setup
+#     style.use('fivethirtyeight')  # Make the graphs look better
+#
+#     fig = plt.figure()
+#     ax1 = fig.add_subplot(1, 1, 1)
+#
+#     ax1.clear()
+#     ax1.plot(x, y)
+#
+#     # ani = animation.FuncAnimation(fig, animate, interval=1000)
+#
+#     plt.savefig('static/graphs/graph.png')
+#
+#     return '<img src=' + url_for('static/graphs', filename='graph.png') + '>'
+
+
+    # canvas = FigureCanvas(fig)
+    # png_output = StringIO.StringIO()
+    # canvas.print_png(png_output)
+    # response = make_response(png_output.getvalue())
+    # response.headers['Content-Type' = image/png'']
 
 if __name__ == "__main__":
 
