@@ -10,7 +10,7 @@ port = 1883
 timeout = 60
 username = "mbed"
 password = "homework"
-uuid = "26013f37-08009003ae2a90e552b1fc8ef5001e87"
+uuid = "1234"
 topic = "cis541/hw-mqt/26013f37-08009003ae2a90e552b1fc8ef5001e87/echo"
 qos = 0
 
@@ -42,11 +42,6 @@ client.username_pw_set(username, password)
 client.connect(broker_address, port, 60)
 client.loop_start()
 
-
-
-
-
-
 nav = Nav()
 
 # @todo Apply theme to Nav Bar
@@ -71,4 +66,6 @@ def about():
     return render_template('about.html', message='About page under construction')
 
 if __name__ == "__main__":
+
+
     app.run(debug=True)
