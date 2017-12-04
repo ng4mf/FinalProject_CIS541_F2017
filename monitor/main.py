@@ -1,9 +1,11 @@
-from flask import Flask, render_template, make_response, redirect, url_for
+from flask import Flask, render_template
 from flask_bootstrap import Bootstrap
 from flask_nav import Nav
 from flask_nav.elements import *
 import paho.mqtt.client as mqtt
 import time
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 from matplotlib import style
@@ -21,7 +23,7 @@ timeout = 60
 username = "mbed"
 password = "homework"
 uuid = "1234"
-topic = "cis541/hw-mqt/26013f37-08009003ae2a90e552b1fc8ef5001e87/echo"
+topic = "cis541/hw-mqtt/26013f37-08009003ae2a90e552b1fc8ef5001e87/echo"
 qos = 0
 
 
@@ -74,31 +76,24 @@ def index():
 def about():
     return render_template('about.html', message='About page under construction')
 
-# @app.route('/graph')
-# def graph():
-#     # Matplotlib setup
-#     style.use('fivethirtyeight')  # Make the graphs look better
-#
-#     fig = plt.figure()
-#     ax1 = fig.add_subplot(1, 1, 1)
-#
-#     ax1.clear()
-#     ax1.plot(x, y)
-#
-#     # ani = animation.FuncAnimation(fig, animate, interval=1000)
-#
-#     plt.savefig('static/graphs/graph.png')
-#
-#     return '<img src=' + url_for('static/graphs', filename='graph.png') + '>'
+@app.route('/graph')
+def graph():
+    # Matplotlib setup
+    style.use('fivethirtyeight')  # Make the graphs look better
+
+    fig = plt.figure()
+    ax1 = fig.add_subplot(1, 1, 1)
+
+    ax1.clear()
+    ax1.plot(x, y)
+
+    # ani = animation.FuncAnimation(fig, animate, interval=1000)
+
+    plt.savefig('static/graphs/graph.png')
+
+    return '<img src=' + url_for('static', filename='graphs/graph.png') + '>'
 
 
-    # canvas = FigureCanvas(fig)
-    # png_output = StringIO.StringIO()
-    # canvas.print_png(png_output)
-    # response = make_response(png_output.getvalue())
-    # response.headers['Content-Type' = image/png'']
 
 if __name__ == "__main__":
-
-
     app.run(debug=True)
