@@ -111,7 +111,9 @@ def get_patients():
     patients = []
     for key in patient_data:
         if key != "default":
-            patients.append(patient_data[key]["name"])
+            patients.append({
+                'id': key,
+                'name': patient_data[key]["name"]})
 
     return patients
 
@@ -131,17 +133,24 @@ nav.init_app(app)
 
 @app.route('/')
 def index():
+    return render_template("index.html", patients=get_patients())
+
+@app.route('/patient/<string:patient_name>')
+def patient(patient_name):
     '''
         Use a variable parameter here to decide which data to display in the main view
     '''
 
-    return render_template('index.html', patients=get_patients())
+
+    if patient_name != "" and patient_name not in patient_data:
+        patient_name = "default"
+
+
+    return render_template('patient.html', patient_data=patient_data[patient_name])
 
 @app.route('/about')
 def about():
-    return render_template('about.html',
-                           message='About page under construction',
-                           patients=get_patients())
+    return render_template('about.html', message='About page under construction')
 
 @app.route('/alerts')
 def alerts_ep():
