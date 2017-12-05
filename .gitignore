@@ -5,3 +5,4 @@
 .idea
 venv
 *.pyc
+monitor/static/graphs/*.png
