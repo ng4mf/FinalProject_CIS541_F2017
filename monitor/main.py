@@ -146,7 +146,9 @@ def patient(patient_name):
         patient_name = "default"
 
 
-    return render_template('patient.html', patient_data=patient_data[patient_name])
+    return render_template('patient.html',
+                           patients=get_patients(),
+                           patient_data=patient_data[patient_name])
 
 @app.route('/about')
 def about():

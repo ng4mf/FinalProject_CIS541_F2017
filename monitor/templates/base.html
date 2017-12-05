@@ -23,9 +23,11 @@
 <div id="sidebar-wrapper">
   <ul class="sidebar-nav">
       <li><a href="{{ url_for('index') }}">Nikhil Shenoy</a></li>
-      <li><a href="{{ url_for('patient', patient_name='neeraj_gandhi') }}">Neeraj Gandhi</a></li>
-      <li><a href="{{ url_for('patient', patient_name='ramneet_kaur') }}">Ramneet Kaur</a></li>
-      <li><a href="{{ url_for('patient', patient_name='abhijeet_singh') }}">Abhijeet Singh</a></li>
+      {% for p in patients %}
+        {% if p.id != 'nikhil_shenoy' %}
+          <li><a href="{{ url_for('patient', patient_name=p.id) }}">{{ p.name }}</a></li>
+        {% endif %}
+      {% endfor %}
   </ul>
 </div>
 
