@@ -4,18 +4,23 @@ from flask_nav import Nav
 from flask_nav.elements import *
 import paho.mqtt.client as mqtt
 import time
+import os
+from flask.json import jsonify
+
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-import matplotlib.animation as animation
 from matplotlib import style
-from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
-import cStringIO
 
 
 # Global variables for graphing
 x = [1, 2, 3, 4, 5]
 y = [0, 0, 0, 0, 0]
+fig = plt.figure()
+
+# Global variable for alerts
+notifications = []
+
 
 broker_address = "35.188.242.1"
 port = 1883
@@ -57,6 +62,11 @@ client.loop_start()
 
 nav = Nav()
 
+def delete_old_graphs():
+    files = [f for f in os.listdir('./static/graphs')]
+    for f in files:
+        os.remove(f)
+
 # @todo Apply theme to Nav Bar
 @nav.navigation()
 def mynavbar():
@@ -78,12 +88,25 @@ def index():
 def about():
     return render_template('about.html', message='About page under construction')
 
+@app.route('/alerts')
+def alerts_ep():
+    for i in range(10):
+        notifications.append({
+            'id': i,
+            'one': 'one',
+            'two': 'two',
+            'three': 'three',
+            'four': 'four'
+        })
+
+    return jsonify(notifications)
+
 @app.route('/graph')
-def graph():
+def graph_ep():
+
     # Matplotlib setup
     style.use('fivethirtyeight')  # Make the graphs look better
 
-    fig = plt.figure()
     ax1 = fig.add_subplot(1, 1, 1)
 
     ax1.clear()
