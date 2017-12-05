@@ -8,8 +8,11 @@
 5. Navigate to `localhost:5000/` to view
 
 ## To Do List
+### High Priority
 * Synchronize communication over MQTT
 * Synchronize data format
-* Create mock data for other patients
 * Correct graph axes
 * Deploy via Google Cloud
+### Lower Priority
+* About Page
+* Create mock data for other patients
