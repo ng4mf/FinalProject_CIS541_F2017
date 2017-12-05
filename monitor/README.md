@@ -15,4 +15,3 @@
 * Deploy via Google Cloud
 ### Lower Priority
 * About Page
-* Create mock data for other patients

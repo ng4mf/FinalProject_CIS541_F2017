@@ -176,6 +176,7 @@ def graph_ep():
     ax1 = fig.add_subplot(1, 1, 1)
 
     ax1.clear()
+    plt.ylim(0,100)
     ax1.plot(x, y)
 
     # ani = animation.FuncAnimation(fig, animate, interval=1000)
