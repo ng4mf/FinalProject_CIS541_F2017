@@ -118,15 +118,6 @@ def graph_ep():
     file_name = 'static/graphs/graph' + time_string + '.png'
 
     plt.savefig(file_name)
-    # canvas = FigureCanvas(fig)
-    # output = cStringIO.StringIO()
-    # canvas.print_png(output)
-    # response = make_response(output.getvalue())
-    # response.mimetype = 'image/png'
-    #
-    #
-    # return response
-
 
     return '<img src="' + file_name + '">'
 
