@@ -15,3 +15,4 @@
 * Deploy via Google Cloud
 ### Lower Priority
 * About Page
+* Scaling issues?
