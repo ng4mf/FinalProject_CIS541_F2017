@@ -22,10 +22,9 @@
 
 <div id="sidebar-wrapper">
   <ul class="sidebar-nav">
-    <li><a href="#">Patient</a></li>
-    <li><a href="#">Patient</a></li>
-    <li><a href="#">Patient</a></li>
-    <li><a href="#">Patient</a></li>
+    {% for name in patients %}
+      <li><a href="#">{{ name }} </a></li>
+    {% endfor %}
   </ul>
 </div>
 

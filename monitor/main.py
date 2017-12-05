@@ -12,6 +12,46 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from matplotlib import style
 
+# Patient Data
+patient_data = {
+    "nikhil_shenoy": {
+        "name": "Nikhil Shenoy",
+        "description": "Pacemaker Patient",
+        "age": 24,
+        "height": "5\' 8\"",
+        "occupation": "student"
+    },
+    "neeraj_gandhi": {
+        "name": "Neeraj Gandhi",
+        "description": "Pacemaker Patient",
+        "age": 23,
+        "height": "5\' 8\"",
+        "occupation": "student"
+    },
+    "abhijeet_singh": {
+        "name": "Abhijeet Singh",
+        "description": "Pacemaker Patient",
+        "age": 23,
+        "height": "5\' 8\"",
+        "occupation": "student"
+    },
+    "ramneet_kaur": {
+        "name": "Ramneet Kaur",
+        "description": "Pacemaker Patient",
+        "age": 23,
+        "height": "5\' 8\"",
+        "occupation": "student"
+    },
+    "default": {
+        "name": "John Doe",
+        "description": "Pacemaker Patient",
+        "age": 50,
+        "height": "6\' 0\"",
+        "occupation": "doctor"
+    }
+
+}
+
 
 # Global variables for graphing
 x = [1, 2, 3, 4, 5]
@@ -57,8 +97,8 @@ client.on_message = on_message
 client.on_disconnect = on_disconnect
 client.username_pw_set(username, password)
 
-client.connect(broker_address, port, 60)
-client.loop_start()
+# client.connect(broker_address, port, 60)
+# client.loop_start()
 
 nav = Nav()
 
@@ -66,6 +106,15 @@ def delete_old_graphs():
     files = [f for f in os.listdir('./static/graphs')]
     for f in files:
         os.remove(f)
+
+def get_patients():
+    patients = []
+    for key in patient_data:
+        if key != "default":
+            patients.append(patient_data[key]["name"])
+
+    return patients
+
 
 # @todo Apply theme to Nav Bar
 @nav.navigation()
@@ -82,11 +131,17 @@ nav.init_app(app)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    '''
+        Use a variable parameter here to decide which data to display in the main view
+    '''
+
+    return render_template('index.html', patients=get_patients())
 
 @app.route('/about')
 def about():
-    return render_template('about.html', message='About page under construction')
+    return render_template('about.html',
+                           message='About page under construction',
+                           patients=get_patients())
 
 @app.route('/alerts')
 def alerts_ep():
