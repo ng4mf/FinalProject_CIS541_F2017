@@ -135,10 +135,11 @@ void ASSIGN(int t) {
       natural_beat = false;
       break;
     case 1:
-        syncMap[VSenseS] = false;
+//        syncMap[VSenseS] = false;
         break;
     case 2:
       started = true;
+//      syncMap[VSenseS] = false;
       break;
     case 3: break;
     case 4: break;
@@ -209,8 +210,7 @@ void TRANS_TAKEN_HOOK(int t) {
         //printf("Updating to activeness true : %d\n", i);
         TRANS[i].active = true;
         // For receiving sync channels, update to true
-        if (i == 1 || i == 7 || i== 8 || i == 10 || i == 11 || i == 12)
-            syncMap[TRANS[i].sync] = true;
+
     }
   }
   //printf("Done transitioning\n");
@@ -246,10 +246,20 @@ bool EVAL_GUARD(int t) {
 //
 void clear_and_set(int t) {
     // Set this nodes and all its complements sync channels to false
-  //for (int i = 0; i <= 13; i++) {
-//    syncMap[TRANS[i].sync] = false; // Clear all sync flags
+//  for (int i = 0; i <= 13; i++) {
+//    if (i == 1 || i == 7 || i== 8 || i == 10 || i == 11 || i == 12)
+//        syncMap[TRANS[i].sync] = true;
+//    else
+//        syncMap[TRANS[i].sync] = false; // Clear all sync flags
 //  }
 //  syncMap[none] = true;
+    syncMap[VPaceS]        = false;
+    syncMap[VPaceR]        = true;
+    syncMap[VSenseS]       = false;
+    syncMap[VSenseR]       = true;
+    syncMap[tachychardiaS] = false;
+    syncMap[tachychardiaR] = true;
+    syncMap[none]          = true;
 }
 //
 vector<int> getComplements(int t) {
@@ -336,7 +346,7 @@ int check_trans() {
 //  //printf("Current time: %d\n", timer.read_ms());
   // Loop through the set of edges in all templates
   for (trn = 0; trn < NB_TRANS; trn++) {
-    printf("%d | %d | %d\n", trn, syncMap[VSenseS], timer.read_ms());
+//    printf("%d | %d | %d\n", trn, syncMap[VSenseS], timer.read_ms());
     // If an edge we examine is active, i.e. we are in a state such that this
     //// edge can be taken, then
     if ( TRANS[trn].active ) {
@@ -374,7 +384,7 @@ int check_trans() {
                   TRANS_TAKEN_HOOK(trn);
                 }
                 clear_and_set(trn);
-                clear_and_set(compl_trn);
+//                clear_and_set(compl_trn);
                 count_trans+=2;
 //                 trn=-1;
             }
