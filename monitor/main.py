@@ -191,5 +191,4 @@ def graph_ep():
 
 
 if __name__ == "__main__":
-    tick = 0
     app.run(debug=True)
