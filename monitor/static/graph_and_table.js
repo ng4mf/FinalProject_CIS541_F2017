@@ -8,7 +8,7 @@ function requestGraph() {
             // This is the refresh
             setTimeout(requestGraph,1000);
         },
-        cache: false
+        cache: true
     })
 }
 

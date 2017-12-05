@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, make_response
 from flask_bootstrap import Bootstrap
 from flask_nav import Nav
 from flask_nav.elements import *
@@ -10,12 +10,12 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 from matplotlib import style
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
-import StringIO
+import cStringIO
 
 
 # Global variables for graphing
 x = [1, 2, 3, 4, 5]
-y = [5, 4, 3, 2, 1]
+y = [0, 0, 0, 0, 0]
 
 broker_address = "35.188.242.1"
 port = 1883
@@ -23,8 +23,9 @@ timeout = 60
 username = "mbed"
 password = "homework"
 uuid = "1234"
-topic = "cis541/hw-mqtt/26013f37-08009003ae2a90e552b1fc8ef5001e87/echo"
+topic = "cis541/hw-mqt/26013f37-08009003ae2a90e552b1fc8ef5001e87/echo"
 qos = 0
+
 
 
 # The callback for when the client receives a CONNACK response from the server.
@@ -38,7 +39,8 @@ def on_connect(client, userdata, flags, rc):
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
-    # f.write(msg.topic+" "+str(msg.payload))
+    y.pop(0)
+    y.append(msg.payload)
     print(msg.topic+" "+str(msg.payload) + '\n')
 
 def on_disconnect(client, userdata, rc):
@@ -89,11 +91,24 @@ def graph():
 
     # ani = animation.FuncAnimation(fig, animate, interval=1000)
 
-    plt.savefig('static/graphs/graph.png')
+    time_string = str(int(time.time()))
+    file_name = 'static/graphs/graph' + time_string + '.png'
 
-    return '<img src=' + url_for('static', filename='graphs/graph.png') + '>'
+    plt.savefig(file_name)
+    # canvas = FigureCanvas(fig)
+    # output = cStringIO.StringIO()
+    # canvas.print_png(output)
+    # response = make_response(output.getvalue())
+    # response.mimetype = 'image/png'
+    #
+    #
+    # return response
+
+
+    return '<img src="' + file_name + '">'
 
 
 
 if __name__ == "__main__":
+    tick = 0
     app.run(debug=True)
