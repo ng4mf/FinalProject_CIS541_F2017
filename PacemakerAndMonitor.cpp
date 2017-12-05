@@ -93,8 +93,7 @@ DigitalOut  pacePin(p20);           // Pin to output pace signal on
 Timer timer;
 
 void interruptFunction() {
-  senseLED = !senseLED;
-  syncMap[TRANS[6].sync] = true;
+  syncMap[VSenseS] = true;
 }
 //
 void addToQ(int curTime, chan c){
@@ -136,6 +135,8 @@ void ASSIGN(int t) {
       break;
     case 1:
 //        syncMap[VSenseS] = false;
+        senseLED = !senseLED;
+        timer.reset();
         break;
     case 2:
       started = true;
@@ -146,7 +147,7 @@ void ASSIGN(int t) {
     case 5:
       savedTime = timer.read_ms();
       //printf("Time before reset is: %d\n", savedTime);
-      timer.reset();
+
       RI = HRI;
       natural_beat = true;
       break;

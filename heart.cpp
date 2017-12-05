@@ -4,7 +4,7 @@
 
 #include "mbed.h"
 
-#define MAXWAIT 3000
+#define MAXWAIT 1500
 #define MINWAIT 500
 
 //Here p10 and p11 are the pins for connecting heart and pacemaker's mbeds, can change it if required
