@@ -133,7 +133,7 @@ nav.init_app(app)
 
 @app.route('/')
 def index():
-    return render_template("index.html", patients=get_patients())
+    return render_template("index.html", patients=get_patients(), ns_data=patient_data["nikhil_shenoy"])
 
 @app.route('/patient/<string:patient_name>')
 def patient(patient_name):
@@ -181,7 +181,7 @@ def graph_ep():
     # ani = animation.FuncAnimation(fig, animate, interval=1000)
 
     time_string = str(int(time.time()))
-    file_name = 'static/graphs/graph' + time_string + '.png'
+    file_name = 'static/graphs/real/graph' + time_string + '.png'
 
     plt.savefig(file_name)
 

@@ -11,16 +11,16 @@
 <div class="row">
 
     <div class="col-xs-6 col-sm-3">
-        <img src="{{ url_for('static', filename='nshenoy_id.jpeg') }}" style="display: block; margin: auto" width="200" height="200" class="img-circle" alt="Generic placeholder thumbnail">
-        <h4 style="text-align: center">Nikhil Shenoy</h4>
+        <img src="{{ url_for('static', filename='img/nshenoy_id.jpeg') }}" style="display: block; margin: auto" width="200" height="200" class="img-circle" alt="Generic placeholder thumbnail">
+        <h4 style="text-align: center">{{ ns_data.name }}</h4>
         <span class="text-muted" style="text-align: center; display: block">Pacemaker Patient</span>
     </div>
 
     <div class="col-xs-6 col-sm-3">
         <h2>User Profile</h2>
-            <p>One</p>
-            <p>Two</p>
-            <p>Three</p>
+            <p>Age: {{ ns_data.age }}</p>
+            <p>Height: {{ ns_data.height }}</p>
+            <p>Occupation: {{ ns_data.occupation }}</p>
     </div>
 
     <div class="col-xs-6 col-sm-6">
