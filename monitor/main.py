@@ -54,7 +54,15 @@ patient_data = {
 
 
 # Global variables for graphing
+LRL = 1500.0 # milliseconds
+URL = 600.0 # milliseconds
+
 x = [1, 2, 3, 4, 5]
+
+# Conversion to beats per minute
+LRL_data = [1000.0/LRL for i in range(5)]
+URL_data = [1000.0/URL for i in range(5)]
+
 y = [0, 0, 0, 0, 0]
 fig = plt.figure()
 
@@ -68,7 +76,8 @@ timeout = 60
 username = "mbed"
 password = "homework"
 uuid = "1234"
-topic = "cis541/hw-mqt/26013f37-08009003ae2a90e552b1fc8ef5001e87/echo"
+# topic = "cis541/hw-mqt/26013f37-08009003ae2a90e552b1fc8ef5001e87/echo"
+topic = "group8data"
 qos = 0
 
 
@@ -176,8 +185,26 @@ def graph_ep():
     ax1 = fig.add_subplot(1, 1, 1)
 
     ax1.clear()
-    plt.ylim(0,100)
-    ax1.plot(x, y)
+    # plt.ylim(0,100)
+    # y_axis = [float(i)/10.0 for i in range(0,16,1)]
+
+
+    ax1.plot(x, y, marker='o', label="Heart Data")
+    ax1.plot(x, LRL_data, marker='o', label="Lower Rate Limit")
+    ax1.plot(x, URL_data, marker='o', label="Upper Rate Limit")
+    ax1.set(xlabel="Time",
+            ylabel="Beats per Minute",
+            title="Moving Average of Heart Rate")
+
+    ax1.legend()
+
+    ax1.grid(True)
+
+    # Change y axis
+    x1, x2, y1, y2 = plt.axis()
+    plt.axis((x1,x2,0.0, 2.5))
+    y_axis = [float(i)/10.0 for i in range(0,25,2)]
+    plt.yticks(y_axis)
 
     # ani = animation.FuncAnimation(fig, animate, interval=1000)
 
