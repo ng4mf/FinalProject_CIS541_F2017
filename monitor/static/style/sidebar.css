@@ -1,0 +1,30 @@
+#sidebar-wrapper {
+    z-index: 1;
+    position: absolute;
+    width: 200px;
+    height: 100%;
+    overflow-y: hiddne;
+    background: #2C3E50;
+}
+
+/* Sidebar Styling */
+
+.sidebar-nav {
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar-nav li {
+    text-indent: 20px;
+    line-height: 40px;
+}
+
+.sidebar-nav li a{
+    display: block;
+    text-decoration: none;
+    color: #ddd;
+}
+
+.sidebar-nav li a:hover {
+    background: #16A085;
+}

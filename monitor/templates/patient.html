@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block scripts %}
+{{super()}}
+<script src="static/graph_and_table.js"></script>
+{% endblock %}
+
+{% block main_content %}
+<h1 class="page-header">Dashboard</h1>
+
+<div class="row">
+
+    <div class="col-xs-6 col-sm-3">
+        <img src="{{ url_for('static', filename='img/unknown_user.png') }}" style="display: block; margin: auto" width="200" height="200" class="img-circle" alt="Generic placeholder thumbnail">
+        <h4 style="text-align: center">{{ patient_data.name }}</h4>
+        <span class="text-muted" style="text-align: center; display: block">{{ patient_data.description }}</span>
+    </div>
+
+    <div class="col-xs-6 col-sm-3">
+        <h2>User Profile</h2>
+            <h4>Age: {{ patient_data.age }}</h4>
+            <h4>Height: {{ patient_data.height }}</h4>
+            <h4>Occupation: {{ patient_data.occupation }}</h4>
+    </div>
+
+    <div class="col-xs-6 col-sm-6">
+        <div class="container-fluid" id="graph-container">
+            <img src="{{ url_for('static', filename='graphs/fake/fake_graph.png') }}"/>
+        </div>
+    </div>
+
+
+
+</div>
+
+<h2 class="sub-header">Alerts</h2>
+<div class="table-responsive table-responsive-sm table-striped table-hover" style="overflow-y: scroll; height: 200px">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Header</th>
+            <th>Header</th>
+            <th>Header</th>
+            <th>Header</th>
+        </tr>
+        </thead>
+        <tbody id="alert_body"></tbody>
+
+    </table>
+</div>
+
+{% endblock %}

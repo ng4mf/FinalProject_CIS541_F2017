@@ -1,3 +1,8 @@
 *.aux
 *.log
 *.out
+*.xml
+.idea
+venv
+*.pyc
+monitor/static/graphs/*.png
