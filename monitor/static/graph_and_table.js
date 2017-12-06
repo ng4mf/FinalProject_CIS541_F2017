@@ -6,7 +6,7 @@ function requestGraph() {
             $("#graph-container").html(response);
 
             // This is the refresh
-            setTimeout(requestGraph,5000);
+            setTimeout(requestGraph,3000);
         },
         cache: false
     })
@@ -28,7 +28,7 @@ function requestAlerts() {
             }
 
             // This is the refresh
-            setTimeout(requestAlerts,5000);
+//            setTimeout(requestAlerts,3000);
         },
         cache: false
     })

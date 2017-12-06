@@ -57,7 +57,7 @@ patient_data = {
 LRL = 1500.0  # milliseconds
 URL = 600.0  # milliseconds
 
-x = [0.0 for i in range(5)]
+x = [float(-1 * i) for i in range(5,0,-1)]
 
 # Conversion to beats per minute
 LRL_data = [1000.0/LRL for i in range(5)]
@@ -105,9 +105,11 @@ def on_message(client, userdata, msg):
     elif "fast" in msg.payload:
         add_data(fast_alarms, msg.payload)
     else:
-        timestamp = float(msg.payload.split(':')[0])
+        pieces = msg.payload.split(':')
+        timestamp = float(pieces[0])
+        heart_val = float(pieces[1])
         add_data(x, timestamp)
-        add_data(heart_data, float(msg.payload))
+        add_data(heart_data, heart_val)
 
     print(msg.topic+" "+str(msg.payload) + '\n')
 
