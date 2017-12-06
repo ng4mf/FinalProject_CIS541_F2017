@@ -7,7 +7,8 @@ timeout = 60
 username = "mbed"
 password = "homework"
 uuid = "2345"
-topic = "cis541/hw-mqt/26013f37-08009003ae2a90e552b1fc8ef5001e87/echo"
+# topic = "cis541/hw-mqt/26013f37-08009003ae2a90e552b1fc8ef5001e87/echo"
+topic = "group8/data"
 qos = 0
 
 
@@ -37,9 +38,10 @@ client.loop_start()
 
 while True:
     count = 0
-    while count != 30:
-        print("Publishing {0}".format(count))
-        client.publish(topic, count, qos=0)
+    while count != 20:
+        data = float(count) / 10.0
+        print("Publishing {0}".format(data))
+        client.publish(topic, data, qos=0)
         count += 1
         time.sleep(2)
 

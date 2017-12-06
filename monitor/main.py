@@ -64,7 +64,7 @@ LRL_data = [1000.0/LRL for i in range(5)]
 URL_data = [1000.0/URL for i in range(5)]
 
 y = [0, 0, 0, 0, 0]
-fig = plt.figure()
+
 
 # Global variable for alerts
 notifications = []
@@ -77,7 +77,7 @@ username = "mbed"
 password = "homework"
 uuid = "1234"
 # topic = "cis541/hw-mqt/26013f37-08009003ae2a90e552b1fc8ef5001e87/echo"
-topic = "group8data"
+topic = "group8/data"
 qos = 0
 
 
@@ -106,8 +106,8 @@ client.on_message = on_message
 client.on_disconnect = on_disconnect
 client.username_pw_set(username, password)
 
-# client.connect(broker_address, port, 60)
-# client.loop_start()
+client.connect(broker_address, port, 60)
+client.loop_start()
 
 nav = Nav()
 
@@ -178,6 +178,7 @@ def alerts_ep():
 
 @app.route('/graph')
 def graph_ep():
+    fig = plt.figure()
 
     # Matplotlib setup
     style.use('fivethirtyeight')  # Make the graphs look better
@@ -196,11 +197,12 @@ def graph_ep():
             ylabel="Beats per Minute",
             title="Moving Average of Heart Rate")
 
-    ax1.legend()
+    ax1.legend(loc="upper center")
 
     ax1.grid(True)
 
     # Change y axis
+    ax1.set_ylim(0,2.5)
     x1, x2, y1, y2 = plt.axis()
     plt.axis((x1,x2,0.0, 2.5))
     y_axis = [float(i)/10.0 for i in range(0,25,2)]
