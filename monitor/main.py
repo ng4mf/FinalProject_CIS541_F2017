@@ -57,13 +57,14 @@ patient_data = {
 LRL = 1500.0 # milliseconds
 URL = 600.0 # milliseconds
 
-x = [1, 2, 3, 4, 5]
+x = [float(i+1) for i in range(5)]
 
 # Conversion to beats per minute
 LRL_data = [1000.0/LRL for i in range(5)]
 URL_data = [1000.0/URL for i in range(5)]
+fig = plt.figure()
 
-y = [0, 0, 0, 0, 0]
+y = [0.0 for i in range(5)]
 
 
 # Global variable for alerts
@@ -94,7 +95,8 @@ def on_connect(client, userdata, flags, rc):
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
     y.pop(0)
-    y.append(msg.payload)
+    # print(float(msg.payload))
+    y.append(float(msg.payload))
     print(msg.topic+" "+str(msg.payload) + '\n')
 
 def on_disconnect(client, userdata, rc):
@@ -178,6 +180,8 @@ def alerts_ep():
 
 @app.route('/graph')
 def graph_ep():
+    print(y)
+
     fig = plt.figure()
 
     # Matplotlib setup
