@@ -19,10 +19,11 @@ function requestAlerts() {
             var html = "<tr>"
             //debugger
             console.log(response)
+            $("#alert_body").empty();
             for(var i in response) {
                 alert = response[i]
                 // Fix how the html gets generated once you know the format of the alerts
-                html = "<tr><td>" + alert["id"] + "</td><td>" + alert["type"] + "</td></tr>";
+                html = "<tr><td>" + alert["timestamp"] + "</td><td>" + alert["type"] + "</td></tr>";
                 $("#alert_body").append(html)
             }
 

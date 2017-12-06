@@ -54,10 +54,10 @@ patient_data = {
 
 
 # Global variables for graphing
-LRL = 1500.0 # milliseconds
-URL = 600.0 # milliseconds
+LRL = 1500.0  # milliseconds
+URL = 600.0  # milliseconds
 
-x = [float(i+1) for i in range(5)]
+x = [0.0 for i in range(5)]
 
 # Conversion to beats per minute
 LRL_data = [1000.0/LRL for i in range(5)]
@@ -105,6 +105,8 @@ def on_message(client, userdata, msg):
     elif "fast" in msg.payload:
         add_data(fast_alarms, msg.payload)
     else:
+        timestamp = float(msg.payload.split(':')[0])
+        add_data(x, timestamp)
         add_data(heart_data, float(msg.payload))
 
     print(msg.topic+" "+str(msg.payload) + '\n')
@@ -189,11 +191,25 @@ def alarms_ep():
         else:
             alarm_type = "fast"
 
+        timestamp = float(all_alarms[i].split(':')[0])
 
         notifications.append({
-            'id': i,
+            'timestamp': timestamp,
             'type': alarm_type
         })
+
+    def compare(a, b):
+        if a["timestamp"] > b["timestamp"]:
+            return 1
+        elif a["timestamp"] == b["timestamp"]:
+            return 0
+        else:
+            return -1
+
+    notifications.sort(compare)
+
+    notifications.reverse()
+
 
     return jsonify(notifications)
 
