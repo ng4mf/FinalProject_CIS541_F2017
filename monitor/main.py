@@ -64,12 +64,12 @@ LRL_data = [1000.0/LRL for i in range(5)]
 URL_data = [1000.0/URL for i in range(5)]
 fig = plt.figure()
 
-y = [0.0 for i in range(5)]
+heart_data = [0.0 for i in range(5)]
 
 
 # Global variable for alerts
-notifications = []
-
+slow_alarms = ["" for i in range(5)]
+fast_alarms = ["" for i in range(5)]
 
 broker_address = "35.188.242.1"
 port = 1883
@@ -78,10 +78,14 @@ username = "mbed"
 password = "homework"
 uuid = "1234"
 # topic = "cis541/hw-mqt/26013f37-08009003ae2a90e552b1fc8ef5001e87/echo"
-topic = "group8/data"
+data_topic = "group8/data"
+fast_alert_topic = "group8/slowHeartBeatAlarm"
+slow_alert_topic = "group8/fastHeartBeatAlarm"
 qos = 0
 
-
+def add_data(data, payload):
+    data.pop(0)
+    data.append(payload)
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
@@ -90,13 +94,19 @@ def on_connect(client, userdata, flags, rc):
 
     # Subscribing in on_connect() means that if we lose the connection and
     # reconnect then subscriptions will be renewed.
-    client.subscribe(topic)
+    client.subscribe(data_topic)
+    client.subscribe(fast_alert_topic)
+    client.subscribe(slow_alert_topic)
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
-    y.pop(0)
-    # print(float(msg.payload))
-    y.append(float(msg.payload))
+    if "slow" in msg.payload:
+        add_data(slow_alarms, msg.payload)
+    elif "fast" in msg.payload:
+        add_data(fast_alarms, msg.payload)
+    else:
+        add_data(heart_data, float(msg.payload))
+
     print(msg.topic+" "+str(msg.payload) + '\n')
 
 def on_disconnect(client, userdata, rc):
@@ -166,21 +176,29 @@ def about():
     return render_template('about.html', message='About page under construction')
 
 @app.route('/alerts')
-def alerts_ep():
-    for i in range(10):
+def alarms_ep():
+    # Combine alarms and take out empty strings
+    all_alarms = filter(lambda x: x != "", slow_alarms + fast_alarms)
+
+    notifications = []
+
+    alarm_type = ""
+    for i in range(len(all_alarms)):
+        if "slow" in all_alarms[i]:
+            alarm_type = "slow"
+        else:
+            alarm_type = "fast"
+
+
         notifications.append({
             'id': i,
-            'one': 'one',
-            'two': 'two',
-            'three': 'three',
-            'four': 'four'
+            'type': alarm_type
         })
 
     return jsonify(notifications)
 
 @app.route('/graph')
 def graph_ep():
-    print(y)
 
     fig = plt.figure()
 
@@ -194,7 +212,7 @@ def graph_ep():
     # y_axis = [float(i)/10.0 for i in range(0,16,1)]
 
 
-    ax1.plot(x, y, marker='o', label="Heart Data")
+    ax1.plot(x, heart_data, marker='o', label="Heart Data")
     ax1.plot(x, LRL_data, marker='o', label="Lower Rate Limit")
     ax1.plot(x, URL_data, marker='o', label="Upper Rate Limit")
     ax1.set(xlabel="Time",
@@ -212,7 +230,6 @@ def graph_ep():
     y_axis = [float(i)/10.0 for i in range(0,25,2)]
     plt.yticks(y_axis)
 
-    # ani = animation.FuncAnimation(fig, animate, interval=1000)
 
     time_string = str(int(time.time()))
     file_name = 'static/graphs/real/graph' + time_string + '.png'
