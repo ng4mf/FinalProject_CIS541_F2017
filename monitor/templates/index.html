@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block scripts %}
+{{super()}}
+<script src="static/graph_and_table.js"></script>
+{% endblock %}
+
+{% block main_content %}
+<h1 class="page-header">Dashboard</h1>
+
+<div class="row">
+
+    <div class="col-xs-6 col-sm-3">
+        <img src="{{ url_for('static', filename='img/nshenoy_id.jpeg') }}" style="display: block; margin: auto" width="200" height="200" class="img-circle" alt="Generic placeholder thumbnail">
+        <h4 style="text-align: center">{{ ns_data.name }}</h4>
+        <span class="text-muted" style="text-align: center; display: block">Pacemaker Patient</span>
+    </div>
+
+    <div class="col-xs-6 col-sm-3">
+        <h2>User Profile</h2>
+            <h4>Age: {{ ns_data.age }}</h4>
+            <h4>Height: {{ ns_data.height }}</h4>
+            <h4>Occupation: {{ ns_data.occupation }}</h4>
+    </div>
+
+    <div class="col-xs-6 col-sm-6">
+        <div class="container-fluid" id="graph-container">
+            <img id="#graph_img_tag"/>
+        </div>
+    </div>
+
+
+
+</div>
+
+<h2 class="sub-header">Alarms</h2>
+<div class="table-responsive table-responsive-sm table-striped table-hover" style="overflow-y: scroll; height: 200px">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Header</th>
+            <th>Header</th>
+            <th>Header</th>
+            <th>Header</th>
+        </tr>
+        </thead>
+        <tbody id="alert_body"></tbody>
+
+    </table>
+</div>
+
+{% endblock %}

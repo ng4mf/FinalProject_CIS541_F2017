@@ -1,0 +1,43 @@
+{% extends "bootstrap/base.html" %}
+{% block title %} Monitor {% endblock %}
+
+{% block scripts %}
+{{super()}}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+{% endblock %}
+
+
+{% block head %}
+{{super()}}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/sidebar.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/nav.css') }}">
+{% endblock %}
+
+{% block navbar %}
+{{nav.mynavbar.render()}}
+{% endblock %}
+
+{% block content %}
+<!--Sidebar-->
+
+<div id="sidebar-wrapper">
+  <ul class="sidebar-nav">
+      <li><a href="{{ url_for('index') }}">Nikhil Shenoy</a></li>
+      {% for p in patients %}
+        {% if p.id != 'nikhil_shenoy' %}
+          <li><a href="{{ url_for('patient', patient_name=p.id) }}">{{ p.name }}</a></li>
+        {% endif %}
+      {% endfor %}
+  </ul>
+</div>
+
+
+<div class="container-fluid">
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    {% block main_content %} {% endblock %}
+  </div>
+</div>
+
+
+{% endblock %}
+
