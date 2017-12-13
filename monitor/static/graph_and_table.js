@@ -28,7 +28,7 @@ function requestAlerts() {
             }
 
             // This is the refresh
-//            setTimeout(requestAlerts,3000);
+            setTimeout(requestAlerts,3000);
         },
         cache: false
     })

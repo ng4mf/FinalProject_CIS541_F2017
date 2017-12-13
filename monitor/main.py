@@ -6,6 +6,7 @@ import paho.mqtt.client as mqtt
 import time
 import os
 from flask.json import jsonify
+import datetime
 
 import matplotlib
 matplotlib.use('Agg')
@@ -52,16 +53,28 @@ patient_data = {
 
 }
 
+# Graph counter
+path = 'static/graphs/real'
+
+def clear_graphs():
+    for f in os.listdir(path):
+        os.remove(path + '/' + f)
+
 
 # Global variables for graphing
 LRL = 1500.0  # milliseconds
 URL = 600.0  # milliseconds
 
 x = [float(-1 * i) for i in range(5,0,-1)]
+# x = [0.0]
+# data_size = 30
 
 # Conversion to beats per minute
-LRL_data = [1000.0/LRL for i in range(5)]
-URL_data = [1000.0/URL for i in range(5)]
+LRL_data = [(60*1000.0)/LRL for i in range(5)]
+URL_data = [(60*1000.0)/URL for i in range(5)]
+
+# LRL_data = [(60*1000.0)/LRL]
+# URL_data = [(60*1000.0)/URL]
 fig = plt.figure()
 
 heart_data = [0.0 for i in range(5)]
@@ -70,14 +83,15 @@ heart_data = [0.0 for i in range(5)]
 # Global variable for alerts
 slow_alarms = ["" for i in range(5)]
 fast_alarms = ["" for i in range(5)]
+alarms = ["" for i in range(5)]
 
+# MQTT
 broker_address = "35.188.242.1"
 port = 1883
 timeout = 60
 username = "mbed"
 password = "homework"
 uuid = "1234"
-# topic = "cis541/hw-mqt/26013f37-08009003ae2a90e552b1fc8ef5001e87/echo"
 data_topic = "group8/data"
 fast_alert_topic = "group8/slowHeartBeatAlarm"
 slow_alert_topic = "group8/fastHeartBeatAlarm"
@@ -86,6 +100,8 @@ qos = 0
 def add_data(data, payload):
     data.pop(0)
     data.append(payload)
+
+
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
@@ -100,18 +116,26 @@ def on_connect(client, userdata, flags, rc):
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
-    if "slow" in msg.payload:
-        add_data(slow_alarms, msg.payload)
-    elif "fast" in msg.payload:
-        add_data(fast_alarms, msg.payload)
+
+    #print(msg.payload)
+    payload = msg.payload.strip('\x00')
+    payload = payload.replace('\n',' ')
+    
+
+    # if "slow" in payload:
+    #     add_data(slow_alarms, payload)
+    # elif "fast" in payload:
+    #     add_data(fast_alarms, payload)
+    if "slow" in payload or "fast" in payload:
+        alarms.append(payload)
     else:
-        pieces = msg.payload.split(':')
+        pieces = payload.split('=')
         timestamp = float(pieces[0])
         heart_val = float(pieces[1])
+
         add_data(x, timestamp)
         add_data(heart_data, heart_val)
 
-    print(msg.topic+" "+str(msg.payload) + '\n')
 
 def on_disconnect(client, userdata, rc):
     print("Closing data file...")
@@ -127,10 +151,7 @@ client.loop_start()
 
 nav = Nav()
 
-def delete_old_graphs():
-    files = [f for f in os.listdir('./static/graphs')]
-    for f in files:
-        os.remove(f)
+
 
 def get_patients():
     patients = []
@@ -149,7 +170,7 @@ def mynavbar():
     return Navbar(
         'Pacemaker Project',
         View('Dashboard', 'index'),
-        View('About', 'about')
+        # View('About', 'about')
     )
 
 app = Flask(__name__)
@@ -182,22 +203,25 @@ def about():
 @app.route('/alerts')
 def alarms_ep():
     # Combine alarms and take out empty strings
-    all_alarms = filter(lambda x: x != "", slow_alarms + fast_alarms)
+    # all_alarms = filter(lambda x: x != "", slow_alarms + fast_alarms)
+    all_alarms = filter(lambda x: x != "", alarms)
 
     notifications = []
 
-    alarm_type = ""
+    alarm_message = ""
     for i in range(len(all_alarms)):
-        if "slow" in all_alarms[i]:
-            alarm_type = "slow"
-        else:
-            alarm_type = "fast"
+        # if "slow" in all_alarms[i]:
+        #     alarm_message = "slow"
+        # else:
+        #     alarm_message = "fast"
 
-        timestamp = float(all_alarms[i].split(':')[0])
+        timestamp = all_alarms[i].split('=')[0].strip()
+        alarm_message = all_alarms[i].split('=')[1].strip()
+        #date_format = "%a %b %d %I:%M:%S %Y"
 
         notifications.append({
             'timestamp': timestamp,
-            'type': alarm_type
+            'type': alarm_message
         })
 
     def compare(a, b):
@@ -217,6 +241,8 @@ def alarms_ep():
 
 @app.route('/graph')
 def graph_ep():
+    clear_graphs()
+
 
     fig = plt.figure()
 
@@ -242,10 +268,10 @@ def graph_ep():
     ax1.grid(True)
 
     # Change y axis
-    ax1.set_ylim(0,2.5)
+    ax1.set_ylim(0.0,150.0)
     x1, x2, y1, y2 = plt.axis()
-    plt.axis((x1,x2,0.0, 2.5))
-    y_axis = [float(i)/10.0 for i in range(0,25,2)]
+    plt.axis((x1,x2,0.0, 150.0))
+    y_axis = [float(i) for i in range(0,150,10)]
     plt.yticks(y_axis)
 
 

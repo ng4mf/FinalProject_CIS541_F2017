@@ -42,9 +42,9 @@ while True:
     while count != 20:
         # data = float(count) / 10.0
         if count % 2 == 0:
-            data = "The heart is beating slow " + str(count)
+            data = str(count) + ": The heart is beating slow"
         else:
-            data = "The heart is beating fast " + str(count)
+            data = str(count) + ": The heart is beating fast"
 
         print("Publishing {0}".format(data))
         client.publish(topic, data, qos=0)
