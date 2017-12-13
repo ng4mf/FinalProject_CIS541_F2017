@@ -56,53 +56,55 @@ const int HRI = 2000;
 //int[URI, LRI] HRI = LRI;
 
 int RI = HRI;
+clock oldTimeForURI;
 
-bool started = false, natural_beat = true;
-</declaration>
-		<location id="id1" x="383" y="-391">
-			<name x="391" y="-425">WaitVRP</name>
-			<label kind="invariant" x="391" y="-374">x &lt;= VRP</label>
+bool started = false, natural_beat = true, set_alarm = false;</declaration>
+		<location id="id1" x="484" y="-391">
+			<name x="492" y="-425">WaitVRP</name>
+			<label kind="invariant" x="492" y="-374">x &lt;= VRP</label>
 		</location>
 		<location id="id2" x="-212" y="-391">
 			<name x="-271" y="-425">WaitRI</name>
 			<label kind="invariant" x="-271" y="-383">x &lt;= RI</label>
 		</location>
 		<location id="id3" x="-59" y="-391">
-			<name x="-170" y="-382">PostWaitPreSense</name>
+			<name x="-51" y="-382">PostWaitPreSense</name>
 			<committed/>
 		</location>
-		<location id="id4" x="68" y="-391">
-			<name x="58" y="-425">Sensed</name>
+		<location id="id4" x="120" y="-391">
+			<name x="127" y="-382">Sensed</name>
 			<committed/>
 		</location>
 		<init ref="id2"/>
 		<transition>
 			<source ref="id3"/>
 			<target ref="id4"/>
-			<label kind="guard" x="-25" y="-374">x &gt;= URI</label>
-			<nail x="-42" y="-374"/>
-			<nail x="51" y="-374"/>
+			<label kind="guard" x="-51" y="-340">x &gt;= URI</label>
+			<label kind="assignment" x="85" y="-340">x=0</label>
+			<nail x="-59" y="-340"/>
+			<nail x="119" y="-340"/>
 		</transition>
 		<transition>
 			<source ref="id3"/>
 			<target ref="id4"/>
-			<label kind="guard" x="-24" y="-450">x &lt; URI</label>
-			<label kind="synchronisation" x="-24" y="-433">alarm!</label>
-			<nail x="-42" y="-408"/>
-			<nail x="51" y="-408"/>
+			<label kind="guard" x="-59" y="-450">x &lt; URI</label>
+			<label kind="synchronisation" x="8" y="-433">alarm!</label>
+			<label kind="assignment" x="8" y="-450">x=0, set_alarm=true</label>
+			<nail x="-59" y="-433"/>
+			<nail x="119" y="-433"/>
 		</transition>
 		<transition>
 			<source ref="id2"/>
 			<target ref="id3"/>
-			<label kind="synchronisation" x="-144" y="-408">VSense?</label>
+			<label kind="synchronisation" x="-187" y="-408">VSense?</label>
 		</transition>
 		<transition>
 			<source ref="id1"/>
 			<target ref="id2"/>
-			<label kind="guard" x="-59" y="-332">x &gt;= VRP</label>
-			<label kind="assignment" x="145" y="-331">started = true</label>
-			<nail x="332" y="-306"/>
-			<nail x="-152" y="-306"/>
+			<label kind="guard" x="153" y="-306">x &gt;= VRP</label>
+			<label kind="assignment" x="153" y="-323">started = true</label>
+			<nail x="484" y="-306"/>
+			<nail x="-212" y="-306"/>
 		</transition>
 		<transition>
 			<source ref="id2"/>
@@ -110,13 +112,14 @@ bool started = false, natural_beat = true;
 			<label kind="guard" x="-50" y="-501">x &gt;= RI</label>
 			<label kind="synchronisation" x="43" y="-501">VPace!</label>
 			<label kind="assignment" x="111" y="-501">x = 0, RI = LRI, natural_beat=false</label>
-			<nail x="-144" y="-476"/>
-			<nail x="332" y="-476"/>
+			<nail x="-212" y="-476"/>
+			<nail x="484" y="-476"/>
 		</transition>
 		<transition>
 			<source ref="id4"/>
 			<target ref="id1"/>
-			<label kind="assignment" x="110" y="-408">x = 0, RI = HRI, natural_beat=true</label>
+			<label kind="assignment" x="238" y="-408">RI = HRI, natural_beat=true,
+set_alarm=false</label>
 			<nail x="348" y="-391"/>
 		</transition>
 	</template>
@@ -180,11 +183,11 @@ bool alarmSet=false;</declaration>
 	<system>// Place template instantiations here.
 // Process = Template();
 // List one or more processes to be composed into a system.
-system Heart, Ventricle, Observer;
+system  Heart, Ventricle, Observer;
     </system>
 	<queries>
 		<query>
-			<formula>A[] (Ventricle.x&lt;Ventricle.URI &amp;&amp; Ventricle.Sensed imply Observer.alarmSet==true)</formula>
+			<formula>A[] (Ventricle.set_alarm &amp;&amp; Ventricle.Sensed imply Observer.alarmSet==true)</formula>
 			<comment></comment>
 		</query>
 		<query>
