@@ -3,8 +3,35 @@
 #include <stdlib.h>
 #include <map>
 #include <vector>
+#include <iostream>
+#include <string>
+#include <time.h>       /* time_t, time, ctime */
+
+#include "ESP8266Interface.h"
+#include "MQTTNetwork.h"
+#include "MQTTmbed.h"
+#include "MQTTClient.h"
+#include "mbed_mem_trace.h"
+
+#define MQTTCLIENT_QOS2 1
+#define IAP_LOCATION 0x1FFF1FF1
+
+#include "ESP8266Interface.h"
+#include "MQTTNetwork.h"
+#include "MQTTmbed.h"
+#include "MQTTClient.h"
+#include "TextLCD.h"
+#include "mbed.h"
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>       /* time */
 
 #define NB_TRANS 14
+#define MQTT_BROKER_NAME "35.188.242.1"
+#define MQTT_BROKER_PORT 1883
+#define P 5
+#define W 20
+
+ESP8266Interface wifi(p28, p27);
 
 using namespace std;
 
@@ -12,6 +39,8 @@ int savedTime;
 
 DigitalOut paceLED(LED4);
 DigitalOut senseLED(LED2);
+DigitalOut errorLED(LED1);
+DigitalOut tachyLED(LED3);
 
 int RI    = 2000;
 
@@ -27,11 +56,24 @@ int HRI   = 2000;
 
 int VRP   = 300;
 
+
+
+TextLCD lcd(p15, p16, p17, p18, p19, p20, TextLCD::LCD16x2);//rs,e,d4-d7
+char uuid[100];
+
 bool natural_beat = true;
 bool started      = false;
 bool alarmSet     = false;
 
-Thread monitorThread(osPriorityNormal, 1024); // Thread to operate the monitor
+int oldTimeForURI = 700;
+
+Thread pacemakerThread(osPriorityNormal, 1024); // Thread to operate the monitor
+
+// Topic Names
+const char* dataPubTopic = "group8/data";
+const char* slowAlarmPubTopic = "group8/slowHeartBeatAlarm";
+const char* fastAlarmPubTopic = "group8/fastHeartBeatAlarm";
+//const char* tachychardiaAlarmPubTopic = "group8/tachychardiaAttackAlarm";
 
 typedef enum {
   WaitRI, WaitVRP, Ready, VSensed, VPaced, WaitRL, PostWaitPreSense, Sensed
@@ -129,6 +171,7 @@ void ASSIGN(int t) {
       sendVPace();
       savedTime = timer.read_ms();
       //printf("Time before reset is: %d\n", savedTime);
+      oldTimeForURI = savedTime;
       timer.reset();
       RI = LRI;
       natural_beat = false;
@@ -136,6 +179,7 @@ void ASSIGN(int t) {
     case 1:
 //        syncMap[VSenseS] = false;
         senseLED = !senseLED;
+        oldTimeForURI = timer.read_ms();
         timer.reset();
         break;
     case 2:
@@ -158,6 +202,7 @@ void ASSIGN(int t) {
     case 8:
         alarmSet = true;
         addToQ(savedTime, tachychardiaR);
+        tachyLED = !tachyLED;
         break;
     case 9: break;
     case 10:
@@ -168,6 +213,7 @@ void ASSIGN(int t) {
     case 11:
         alarmSet = true;
         addToQ(savedTime, tachychardiaR);
+        tachyLED = !tachyLED;
         break;
     case 12:
         alarmSet = false;
@@ -230,8 +276,8 @@ bool EVAL_GUARD(int t) {
     case 0:  return timer.read_ms() >= RI;//difftime(time(NULL), oldTime) >= RI;
     case 1:  return true;
     case 2:  return timer.read_ms() >= VRP;
-    case 3:  return timer.read_ms() < URI;
-    case 4:  return timer.read_ms() >= URI;
+    case 3:  return oldTimeForURI < URI;
+    case 4:  return oldTimeForURI >= URI;
     case 5:  return true;
     case 6:  return true; // Whether heart sent a sensed beat
     case 7:  return true; // Heart can't control a pace, so always ready to take one
@@ -337,12 +383,81 @@ bool check_complement_sync(int t) {
     }
     return true;
 }
+
+
+// Check all global properties for all execution paths
+int checkGlobalProperties() {
+    // A[] not deadlock
+    // This is not verified here
+
+    // A[] (Ventricle.x $<$ VRP \&\& Ventricle.started) imply (Ventricle.WaitVRP $||$ Ventricle.PostWaitPreSense $||$ Ventricle.Sensed)
+    int curTime = timer.read_ms();
+    bool errorExists = false;
+
+    if ((curTime < VRP && started)) {
+        if ((TRANS[2].active == true) || ((TRANS[3].active == true)||(TRANS[4].active == true)) || ((TRANS[5].active == true))) {
+            // All good
+        }
+        else {
+            errorExists = true;
+        }
+    }
+
+    // A[] ((Ventricle.WaitRI \&\& Ventricle.started \&\& !Ventricle.natural\_beat) imply Ventricle.x $<=$ Ventricle.LRI)
+    if (((TRANS[0].active == true) || ((TRANS[1].active == true))) && started && !natural_beat) {
+        if (curTime <= LRI+8) {
+            // All good
+        }
+        else {
+            errorExists = true;
+        }
+    }
+
+    // A[] ((Ventricle.WaitRI \&\& Ventricle.started \&\& Ventricle.natural\_beat) imply Ventricle.x $<=$ Ventricle.HRI)
+    if (((TRANS[0].active == true) || ((TRANS[1].active == true))) && started && natural_beat) {
+        if (curTime <= HRI+8) {
+            // All good
+        }
+        else {
+            errorExists = true;
+        }
+    }
+
+    // A[] ((Ventricle.WaitRI \&\& Ventricle.started)) imply Ventricle.x $>=$ VRP
+    if (((TRANS[0].active == true) || ((TRANS[1].active == true))) && started) {
+        if (curTime >= VRP) {
+            // All good
+        }
+        else {
+            errorExists = true;
+        }
+    }
+
+    // A[] (Ventricle.x $<$ Ventricle.URI \&\& Ventricle.Sensed imply Observer.alarmSet $==$ true)
+    if (curTime < URI && TRANS[5].active == true) {
+        if (syncMap[tachychardiaR] == true) {
+            // All good
+        }
+        else {
+            errorExists = true;
+        }
+    }
+
+    // If error, turn off LED4
+//    if (errorExists) {
+      errorLED = errorExists;
+//    }
+
+    return 0;
+}
 //
 int check_trans() {
   int trn;
   int compl_trn;
   int count_trans = 0;
   vector<int> complements;
+
+
 
 //  //printf("Current time: %d\n", timer.read_ms());
   // Loop through the set of edges in all templates
@@ -401,23 +516,134 @@ int check_trans() {
       }
     }
   }
+  checkGlobalProperties();
   return count_trans;
 }
 
-void monitor_thread(){
-    dataPass *d;
-//    //printf("SAMPLE\n");
-    while (1) {
-      messageQMutex.lock();
-      osEvent evt = messageQ.get(0);
-      messageQMutex.unlock();
-      if(evt.status == osEventMessage) {
-        d = (dataPass*)evt.value.p;
-        // USE
-        //printf("[%d] CHAN VAL: %d\n", d->curTime, d-> c);
-        free(d);
-      }
+void pacemaker_thread(){
+  timer.start();
+  while (true) {
+    check_trans();
+  }
+}
+
+void publishData(MQTT::Client<MQTTNetwork, Countdown> &client, const char* topic, char* buf)
+{
+//   char buf[10];
+   MQTT::Message message;
+
+   message.qos = MQTT::QOS0;
+   message.payload = (void*)buf;
+   message.payloadlen = strlen(buf)+1;
+   message.dup = false;
+   message.retained = false;
+   int err = client.publish(topic, message);
+   if(err != 0){
+       printf("Error publishing data for the topic: %s, %d\r\n", buf, err);
     }
+   else
+   {
+       printf("Data published is: %s.\r\n", buf);
+//       client.yield(2);
+   }
+}
+
+int runObserver(MQTT::Client<MQTTNetwork, Countdown> &client) {
+     int numTimeSegments = W/P;
+     int arr[numTimeSegments];
+
+     for(int i=0;i < numTimeSegments; i++)
+        arr[i] = 0;
+
+     int value = 0;
+     int oldest = 0;
+     float avg = 0;
+     int dataTimeStamp = 0;
+     int dataStartTime = 0;
+     int dataEndTime = P;
+     char buf[1000];
+
+     Timer observerTimer;
+     observerTimer.start();
+
+     dataPass *d;
+
+
+
+     while (true) {
+
+          time_t rawtime;
+          struct tm * timeinfo;
+          time (&rawtime);
+
+
+          messageQMutex.lock();
+          osEvent evt = messageQ.get(0);
+          messageQMutex.unlock();
+
+//          printf("The value is: %d at: %d\n", value, oldest);
+          //If the observerTimer value is 5 sec or a little above 5 sec, then send the avg data to the cloud and reset the observerTimer
+          if(observerTimer.read() >= P){
+                arr[oldest] = value;
+
+                avg = 0;
+                for(int i=0;i < numTimeSegments; i++)
+                    avg = avg + arr[i];
+                avg = avg / (W + 0.0);
+                avg *= 60;
+
+//                printf("a[0] = %d, a[1] = %d, a[2] = %d, a[3] = %d\n",arr[0],arr[1],arr[2], arr[3]);
+                printf("avg = %f\n", avg);
+                //If avg is above URI, then the heart is beating very fast, send the fastheartbeart alarm to the cloud
+                if(avg > 60*1000/URI){
+                   memset(buf, 0, sizeof(buf));
+                   timeinfo = localtime (&rawtime);
+                  // std::cout<<"Time is: "<<asctime(timeinfo)<<"\n";
+                    sprintf(buf, "%s= %s\n", asctime(timeinfo), "On average, the heart is beating fast");
+                  //sprintf(buf, "%s\n", "The heart is beating fast");
+                    publishData(client, fastAlarmPubTopic, buf);
+                }
+
+                oldest++;
+                if(oldest == numTimeSegments)
+                    oldest = 0;
+
+                value = 0;
+
+                //Time calculation to be send for avg data
+                dataTimeStamp = (dataStartTime+dataEndTime)/2;
+                if(dataEndTime >= W){
+                    dataStartTime = dataStartTime+5;
+                }
+                dataEndTime = dataEndTime+5;
+
+                //Send the avg value to the cloud
+                memset(buf, 0, sizeof(buf));
+                sprintf(buf, "%d= %f\n", dataTimeStamp, avg);
+                publishData(client, dataPubTopic, buf);
+                observerTimer.reset();
+          }
+          if(evt.status == osEventMessage) {
+              d = (dataPass*)evt.value.p;
+              timeinfo = localtime (&rawtime);
+              // If its pacing channel then send the pacing alarm to the cloud
+              if(d->c == VPaceR){
+                    memset(buf, 0, sizeof(buf));
+                    //printf("Time is: %s\n", asctime(timeinfo));
+                    sprintf(buf, "%s= %s\n", asctime(timeinfo), "The heart is beating slow");
+                    //sprintf(buf, "%s\n", "The heart is beating slow");
+                    publishData(client, slowAlarmPubTopic, buf);
+                    value ++;
+              } else if(d->c == VSenseR){
+                  value ++;
+              } else if(d->c == tachychardiaR){
+                    memset(buf, 0, sizeof(buf));
+                    sprintf(buf, "%s= %s\n", asctime(timeinfo), "The heart is beating fast in this cycle");
+                    publishData(client, fastAlarmPubTopic, buf);
+              }
+              free(d);
+          }//end of event driven loop
+      }//end of while loop
 }
 
 int main() { // This is the pacemaker thread after initialization
@@ -432,11 +658,45 @@ int main() { // This is the pacemaker thread after initialization
     syncMap[tachychardiaR] = true;
     syncMap[none]          = true;
 
-    //monitorThread.start(monitor_thread);
+    errorLED = 1; // Initialize this to on
 
-    timer.start();
-    while(1) {
-      check_trans();
+    pacemakerThread.start(pacemaker_thread);
+
+    // timer.start();
+
+//    MQTT::Client<MQTTNetwork,Countdown> client =
+    wifi.set_credentials(MBED_CONF_APP_WIFI_SSID, MBED_CONF_APP_WIFI_PASSWORD,
+                                                        NSAPI_SECURITY_NONE);
+
+    MQTTNetwork cubnet(&wifi);
+    printf("Trying to connect\n");
+    if (wifi.connect() == 0) {
+        printf("Connected to WiFi\n");
+
+        MQTT::Client<MQTTNetwork,Countdown> client(cubnet);
+//        client = *_client;
+        const char* hostname = "35.188.242.1";
+        int port = 1883;
+        int rc = cubnet.connect(hostname, port);
+        if (rc != 0)
+            return -1;
+        printf("Connected to Broker\n");
+
+        MQTTPacket_connectData data = MQTTPacket_connectData_initializer;
+        data.MQTTVersion = 3;
+        data.username.cstring = "mbed";
+        data.password.cstring = "homework";
+        data.clientID.cstring = uuid;
+        if ((rc = client.connect(data)) != 0) {
+            return -1;
+        }
+        printf("Client Connection Success\n");
+
+
+        char *dat = "1";
+
+        runObserver(client);
     }
-
+    else printf("Fail to connect to network: %s\n", wifi.get_mac_address());
+    return 0;
 }
