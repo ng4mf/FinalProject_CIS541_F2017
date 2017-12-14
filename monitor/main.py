@@ -6,7 +6,7 @@ import paho.mqtt.client as mqtt
 import time
 import os
 from flask.json import jsonify
-import datetime
+from datetime import datetime
 
 import matplotlib
 matplotlib.use('Agg')
@@ -117,10 +117,11 @@ def on_connect(client, userdata, flags, rc):
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
 
-    #print(msg.payload)
+    # print(repr(msg.payload))
     payload = msg.payload.strip('\x00')
     payload = payload.replace('\n',' ')
     
+    print(repr(payload))
 
     # if "slow" in payload:
     #     add_data(slow_alarms, payload)
@@ -217,22 +218,26 @@ def alarms_ep():
 
         timestamp = all_alarms[i].split('=')[0].strip()
         alarm_message = all_alarms[i].split('=')[1].strip()
-        #date_format = "%a %b %d %I:%M:%S %Y"
+
+        date_format = "%a %b %d %H:%M:%S %Y"
+
+        timestamp = datetime.strptime(timestamp, date_format)
 
         notifications.append({
             'timestamp': timestamp,
             'type': alarm_message
         })
 
-    def compare(a, b):
-        if a["timestamp"] > b["timestamp"]:
-            return 1
-        elif a["timestamp"] == b["timestamp"]:
-            return 0
-        else:
-            return -1
+    # def compare(a, b):
+    #     if a["timestamp"] > b["timestamp"]:
+    #         return 1
+    #     elif a["timestamp"] == b["timestamp"]:
+    #         return 0
+    #     else:
+    #         return -1
 
-    notifications.sort(compare)
+    # notifications.sort(compare)
+    notifications.sort()
 
     notifications.reverse()
 
