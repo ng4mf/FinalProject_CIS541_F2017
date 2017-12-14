@@ -60,6 +60,9 @@ def clear_graphs():
     for f in os.listdir(path):
         os.remove(path + '/' + f)
 
+# Date format
+date_format = "%a %b %d %H:%M:%S %Y"
+
 
 # Global variables for graphing
 LRL = 1500.0  # milliseconds
@@ -117,18 +120,21 @@ def on_connect(client, userdata, flags, rc):
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
 
-    # print(repr(msg.payload))
+    print(repr(msg.payload))
     payload = msg.payload.strip('\x00')
     payload = payload.replace('\n',' ')
     
-    print(repr(payload))
+    # print(repr(payload))
 
     # if "slow" in payload:
     #     add_data(slow_alarms, payload)
     # elif "fast" in payload:
     #     add_data(fast_alarms, payload)
     if "slow" in payload or "fast" in payload:
-        alarms.append(payload)
+        pieces = payload.split('=')
+        pieces[0] = datetime.now().strftime(date_format)
+        new_alarm = pieces[0] + ' =' + pieces[1]
+        alarms.append(new_alarm)
     else:
         pieces = payload.split('=')
         timestamp = float(pieces[0])
@@ -219,7 +225,6 @@ def alarms_ep():
         timestamp = all_alarms[i].split('=')[0].strip()
         alarm_message = all_alarms[i].split('=')[1].strip()
 
-        date_format = "%a %b %d %H:%M:%S %Y"
 
         timestamp = datetime.strptime(timestamp, date_format)
 
@@ -273,10 +278,11 @@ def graph_ep():
     ax1.grid(True)
 
     # Change y axis
-    ax1.set_ylim(0.0,150.0)
+    axis_height = 150
+    ax1.set_ylim(0.0,float(axis_height))
     x1, x2, y1, y2 = plt.axis()
-    plt.axis((x1,x2,0.0, 150.0))
-    y_axis = [float(i) for i in range(0,150,10)]
+    plt.axis((x1,x2,0.0, float(axis_height)))
+    y_axis = [float(i) for i in range(0,axis_height,10)]
     plt.yticks(y_axis)
 
 
