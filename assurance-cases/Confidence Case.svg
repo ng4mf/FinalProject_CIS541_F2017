@@ -8,13 +8,13 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    version="1.1"
-   viewBox="0 0 1327.2396 2355.8234"
+   viewBox="0 0 1797.1054 2416.9218"
    stroke-miterlimit="10"
    id="svg233"
    sodipodi:docname="Confidence Case.svg"
    inkscape:version="0.92.1 r15371"
-   width="1327.2396"
-   height="2355.8235"
+   width="1797.1055"
+   height="2416.9219"
    style="fill:none;stroke:none;stroke-linecap:square;stroke-miterlimit:10">
   <metadata
      id="metadata239">
@@ -30,6 +30,102 @@
   </metadata>
   <defs
      id="defs237">
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker6646"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path6644"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect6642"
+       is_visible="true" />
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker6638"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path6636"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker6634"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path6632"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker6630"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path6628"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker6626"
+       style="overflow:visible"
+       inkscape:isstock="true"
+       inkscape:collect="always">
+      <path
+         id="path6372"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect6361"
+       is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect6357"
+       is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect6353"
+       is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect6349"
+       is_visible="true" />
     <marker
        inkscape:isstock="true"
        style="overflow:visible"
@@ -270,16 +366,16 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:window-width="1920"
-     inkscape:window-height="1059"
+     inkscape:window-height="1179"
      id="namedview235"
      showgrid="false"
      inkscape:zoom="0.33781036"
-     inkscape:cx="1379.1655"
-     inkscape:cy="883.69424"
+     inkscape:cx="1306.6856"
+     inkscape:cy="1152.257"
      inkscape:window-x="1920"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="g231"
+     inkscape:current-layer="g6130"
      fit-margin-top="0"
      fit-margin-left="0"
      fit-margin-right="0"
@@ -295,7 +391,7 @@
   <g
      clip-path="url(#p.0)"
      id="g231"
-     transform="translate(-448.50281,-185.27148)">
+     transform="translate(-443.63308,-185.27148)">
     <path
        d="m 1039.0727,185.77148 h 233.0709 v 107.30709 h -233.0709 z"
        id="path7"
@@ -833,5 +929,378 @@
        inkscape:connector-curvature="0"
        inkscape:path-effect="#path-effect5138"
        inkscape:original-d="m 1322.8082,1577.8247 c 16.7466,150.7099 33.4923,301.4208 50.2369,452.1326 16.7447,150.7119 -71.168,153.5008 -106.7535,230.2527" />
+    <path
+       d="m 444.22837,1984.302 v 0 c 0,-94.6853 77.8238,-171.443 173.8242,-171.443 v 0 c 46.101,0 90.3139,18.0627 122.9122,50.2145 32.5984,32.1518 50.9119,75.759 50.9119,121.2285 v 0 c 0,94.6854 -77.8237,171.443 -173.8241,171.443 v 0 c -96.0004,0 -173.8242,-76.7576 -173.8242,-171.443 z"
+       id="path111-3"
+       inkscape:connector-curvature="0"
+       style="fill:#cfe2f3;fill-rule:evenodd;stroke:none;stroke-width:1.19057631;stroke-linecap:square;stroke-miterlimit:10" />
+    <path
+       d="m 444.22837,1984.302 v 0 c 0,-94.6853 77.8238,-171.443 173.8242,-171.443 v 0 c 46.101,0 90.3139,18.0627 122.9122,50.2145 32.5984,32.1518 50.9119,75.759 50.9119,121.2285 v 0 c 0,94.6854 -77.8237,171.443 -173.8241,171.443 v 0 c -96.0004,0 -173.8242,-76.7576 -173.8242,-171.443 z"
+       id="path113-6"
+       inkscape:connector-curvature="0"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.19057631;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:26.66666603px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-linecap:square;stroke-miterlimit:10"
+       x="620.77252"
+       y="1892.2228"
+       id="text4816-7"><tspan
+         sodipodi:role="line"
+         x="620.77252"
+         y="1892.2228"
+         id="tspan6066">The</tspan><tspan
+         sodipodi:role="line"
+         x="620.77252"
+         y="1925.5562"
+         id="tspan6070">checkGlobalProperties</tspan><tspan
+         sodipodi:role="line"
+         x="620.77252"
+         y="1958.8894"
+         id="tspan6072">function shows that all</tspan><tspan
+         sodipodi:role="line"
+         x="620.77252"
+         y="1992.2228"
+         id="tspan6074">behavior falls within the</tspan><tspan
+         sodipodi:role="line"
+         x="620.77252"
+         y="2025.5562"
+         id="tspan6076">heart BPM specifications.</tspan><tspan
+         sodipodi:role="line"
+         x="620.77252"
+         y="2058.8894"
+         id="tspan6078">Alarms are set as</tspan><tspan
+         sodipodi:role="line"
+         x="620.77252"
+         y="2092.2227"
+         id="tspan6080">needed. Observed</tspan><tspan
+         sodipodi:role="line"
+         x="620.77252"
+         y="2125.5562"
+         id="tspan6082">in testing.</tspan></text>
+    <g
+       id="g6130"
+       transform="matrix(1,0,0,1.1707888,0,-375.75289)">
+      <path
+         style="fill:#cfe2f3;fill-rule:evenodd;stroke:none;stroke-width:1.19057631;stroke-linecap:square;stroke-miterlimit:10"
+         inkscape:connector-curvature="0"
+         id="path111-2"
+         d="m 450.50799,2371.5452 v 0 c 0,-94.6853 77.8238,-171.443 173.8242,-171.443 v 0 c 46.101,0 90.3139,18.0627 122.9122,50.2145 32.5984,32.1518 50.9119,75.759 50.9119,121.2285 v 0 c 0,94.6854 -77.8237,171.443 -173.8241,171.443 v 0 c -96.0004,0 -173.8242,-76.7576 -173.8242,-171.443 z" />
+      <g
+         style="fill:none;stroke:none;stroke-linecap:square;stroke-miterlimit:10"
+         id="g4918-7"
+         transform="matrix(1,0,0,0.85412501,83.255944,765.48041)">
+        <path
+           style="fill:#cfe2f3;fill-rule:evenodd;stroke-width:1.19057631"
+           inkscape:connector-curvature="0"
+           id="path111-0-9"
+           d="m 1344.7794,1463.8391 v 0 c 0,-94.6853 77.8237,-171.443 173.8241,-171.443 v 0 c 46.1011,0 90.3139,18.0627 122.9123,50.2145 32.5983,32.1518 50.9119,75.759 50.9119,121.2285 v 0 c 0,94.6854 -77.8238,171.443 -173.8242,171.443 v 0 c -96.0004,0 -173.8241,-76.7576 -173.8241,-171.443 z" />
+        <path
+           style="fill-rule:evenodd;stroke:#000000;stroke-width:1.19057631;stroke-linecap:butt;stroke-linejoin:round"
+           inkscape:connector-curvature="0"
+           id="path113-9-2"
+           d="m 1344.7794,1463.8391 v 0 c 0,-94.6853 77.8237,-171.443 173.8241,-171.443 v 0 c 46.1011,0 90.3139,18.0627 122.9123,50.2145 32.5983,32.1518 50.9119,75.759 50.9119,121.2285 v 0 c 0,94.6854 -77.8238,171.443 -173.8242,171.443 v 0 c -96.0004,0 -173.8241,-76.7576 -173.8241,-171.443 z" />
+      </g>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:24.64503479px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.92418885;stroke-linecap:square;stroke-miterlimit:10"
+         x="1480.1986"
+         y="2139.811"
+         id="text4816-36-0"
+         transform="scale(1.0820299,0.92418887)"><tspan
+           sodipodi:role="line"
+           x="1480.1986"
+           y="2139.811"
+           id="tspan4988-5"
+           style="stroke-width:0.92418885">The subdivision of goals</tspan><tspan
+           sodipodi:role="line"
+           x="1480.1986"
+           y="2170.6174"
+           style="stroke-width:0.92418885"
+           id="tspan6237">in Fig. 2 makes sense</tspan><tspan
+           sodipodi:role="line"
+           x="1480.1986"
+           y="2201.4236"
+           style="stroke-width:0.92418885"
+           id="tspan6239">because we must argue</tspan><tspan
+           sodipodi:role="line"
+           x="1480.1986"
+           y="2232.23"
+           style="stroke-width:0.92418885"
+           id="tspan6241">that each property is</tspan><tspan
+           sodipodi:role="line"
+           x="1480.1986"
+           y="2263.0361"
+           style="stroke-width:0.92418885"
+           id="tspan6243">safe and is</tspan><tspan
+           sodipodi:role="line"
+           x="1480.1986"
+           y="2293.8425"
+           style="stroke-width:0.92418885"
+           id="tspan6245">satisfied.</tspan></text>
+      <g
+         style="fill:none;stroke:none;stroke-linecap:square;stroke-miterlimit:10"
+         id="g4918-9"
+         transform="matrix(1,0,0,0.85412501,539.57493,409.69627)">
+        <path
+           style="fill:#cfe2f3;fill-rule:evenodd;stroke-width:1.2180903"
+           inkscape:connector-curvature="0"
+           id="path111-0-2"
+           d="m 1336.6525,1463.8391 v 0 c 0,-94.6853 81.4622,-171.443 181.951,-171.443 v 0 c 48.2565,0 94.5364,18.0627 128.6589,50.2145 34.1224,32.1518 53.2922,75.759 53.2922,121.2285 v 0 c 0,94.6854 -81.4623,171.443 -181.9511,171.443 v 0 c -100.4888,0 -181.951,-76.7576 -181.951,-171.443 z" />
+        <path
+           style="fill-rule:evenodd;stroke:#000000;stroke-width:1.21804154;stroke-linecap:butt;stroke-linejoin:round"
+           inkscape:connector-curvature="0"
+           id="path113-9-28"
+           d="m 1336.6525,1463.8391 v 0 c 0,-94.6777 81.4622,-171.4293 181.951,-171.4293 v 0 c 48.2565,0 94.5364,18.0613 128.6589,50.2105 34.1224,32.1492 53.2922,75.7529 53.2922,121.2188 v 0 c 0,94.6778 -81.4623,171.4293 -181.9511,171.4293 v 0 c -100.4888,0 -181.951,-76.7515 -181.951,-171.4293 z" />
+      </g>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:24.64503479px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.92418885;stroke-linecap:square;stroke-miterlimit:10"
+         x="1901.9235"
+         y="1710.3479"
+         id="text4816-36-9"
+         transform="scale(1.0820299,0.92418887)"><tspan
+           sodipodi:role="line"
+           x="1905.8464"
+           y="1710.3479"
+           id="tspan4988-2"
+           style="stroke-width:0.92418885">The subdivision </tspan><tspan
+           sodipodi:role="line"
+           x="1905.8464"
+           y="1741.1542"
+           style="stroke-width:0.92418885"
+           id="tspan6286">of goals in Fig. 4 makes </tspan><tspan
+           sodipodi:role="line"
+           x="1905.8464"
+           y="1771.9604"
+           style="stroke-width:0.92418885"
+           id="tspan6290">sense because we must </tspan><tspan
+           sodipodi:role="line"
+           x="1901.9235"
+           y="1802.7667"
+           style="stroke-width:0.92418885"
+           id="tspan6294">argue/show evidence that</tspan><tspan
+           sodipodi:role="line"
+           x="1901.9235"
+           y="1833.5731"
+           style="stroke-width:0.92418885"
+           id="tspan6296">each property is</tspan><tspan
+           sodipodi:role="line"
+           x="1901.9235"
+           y="1864.3794"
+           style="stroke-width:0.92418885"
+           id="tspan6300">implemented correctly</tspan><tspan
+           sodipodi:role="line"
+           x="1901.9235"
+           y="1895.1857"
+           style="stroke-width:0.92418885"
+           id="tspan6316">in the system.</tspan></text>
+      <g
+         style="fill:none;stroke:none;stroke-linecap:square;stroke-miterlimit:10"
+         id="g4918-93"
+         transform="matrix(1,0,0,0.85412501,539.57492,758.32896)">
+        <path
+           style="fill:#cfe2f3;fill-rule:evenodd;stroke-width:1.19057631"
+           inkscape:connector-curvature="0"
+           id="path111-0-1"
+           d="m 1344.7794,1463.8391 v 0 c 0,-94.6853 77.8237,-171.443 173.8241,-171.443 v 0 c 46.1011,0 90.3139,18.0627 122.9123,50.2145 32.5983,32.1518 50.9119,75.759 50.9119,121.2285 v 0 c 0,94.6854 -77.8238,171.443 -173.8242,171.443 v 0 c -96.0004,0 -173.8241,-76.7576 -173.8241,-171.443 z" />
+        <path
+           style="fill-rule:evenodd;stroke:#000000;stroke-width:1.19057631;stroke-linecap:butt;stroke-linejoin:round"
+           inkscape:connector-curvature="0"
+           id="path113-9-9"
+           d="m 1344.7794,1463.8391 v 0 c 0,-94.6853 77.8237,-171.443 173.8241,-171.443 v 0 c 46.1011,0 90.3139,18.0627 122.9123,50.2145 32.5983,32.1518 50.9119,75.759 50.9119,121.2285 v 0 c 0,94.6854 -77.8238,171.443 -173.8242,171.443 v 0 c -96.0004,0 -173.8241,-76.7576 -173.8241,-171.443 z" />
+      </g>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:24.64503479px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.92418885;stroke-linecap:square;stroke-miterlimit:10"
+         x="1901.9236"
+         y="2132.0728"
+         id="text4816-36-4"
+         transform="scale(1.0820299,0.92418887)"><tspan
+           sodipodi:role="line"
+           x="1901.9236"
+           y="2153.8779"
+           id="tspan4988-0"
+           style="stroke-width:0.92418885" /></text>
+      <g
+         style="fill:none;stroke:none;stroke-linecap:square;stroke-miterlimit:10"
+         id="g4918-3"
+         transform="matrix(1,0,0,0.85412501,87.442356,1115.901)">
+        <path
+           style="fill:#cfe2f3;fill-rule:evenodd;stroke-width:1.74083984"
+           inkscape:connector-curvature="0"
+           id="path111-0-6"
+           d="m 1344.7794,1463.8391 v 0 c 0,-94.6853 166.3853,-171.443 371.632,-171.443 v 0 c 98.5632,0 193.0891,18.0627 262.7838,50.2145 69.6944,32.1518 108.8485,75.759 108.8485,121.2285 v 0 c 0,94.6854 -166.3855,171.443 -371.6323,171.443 v 0 c -205.2467,0 -371.632,-76.7576 -371.632,-171.443 z" />
+        <path
+           style="fill-rule:evenodd;stroke:#000000;stroke-width:1.74083984;stroke-linecap:butt;stroke-linejoin:round"
+           inkscape:connector-curvature="0"
+           id="path113-9-1"
+           d="m 1344.7794,1463.8391 v 0 c 0,-94.6853 166.3853,-171.443 371.632,-171.443 v 0 c 98.5632,0 193.0891,18.0627 262.7838,50.2145 69.6944,32.1518 108.8485,75.759 108.8485,121.2285 v 0 c 0,94.6854 -166.3855,171.443 -371.6323,171.443 v 0 c -205.2467,0 -371.632,-76.7576 -371.632,-171.443 z" />
+      </g>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:24.64503479px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.92418885;stroke-linecap:square;stroke-miterlimit:10"
+         x="1667.847"
+         y="2470.6135"
+         id="text4816-36-06"
+         transform="scale(1.0820299,0.92418887)"><tspan
+           sodipodi:role="line"
+           x="1671.77"
+           y="2470.6135"
+           id="tspan4988-6"
+           style="stroke-width:0.92418885">The subdivision of goals </tspan><tspan
+           sodipodi:role="line"
+           x="1667.847"
+           y="2501.4199"
+           style="stroke-width:0.92418885"
+           id="tspan6265">in Fig. 3 makes sense because we must</tspan><tspan
+           sodipodi:role="line"
+           x="1667.847"
+           y="2532.2261"
+           style="stroke-width:0.92418885"
+           id="tspan6267">argue that each transition is implemented and</tspan><tspan
+           sodipodi:role="line"
+           x="1671.77"
+           y="2563.0325"
+           style="stroke-width:0.92418885"
+           id="tspan6269">all components exist. We must also argue that </tspan><tspan
+           sodipodi:role="line"
+           x="1667.847"
+           y="2593.8386"
+           style="stroke-width:0.92418885"
+           id="tspan6271">changes are handled correctly through the</tspan><tspan
+           sodipodi:role="line"
+           x="1667.847"
+           y="2624.645"
+           style="stroke-width:0.92418885"
+           id="tspan6273">multi-threaded and message-passing</tspan><tspan
+           sodipodi:role="line"
+           x="1667.847"
+           y="2655.4512"
+           style="stroke-width:0.92418885"
+           id="tspan6275">communication methods.</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:24.64503479px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.92418885"
+         x="1900.0522"
+         y="2055.5359"
+         id="text6329"
+         transform="scale(1.0820299,0.92418884)"><tspan
+           sodipodi:role="line"
+           id="tspan6327"
+           x="1900.0522"
+           y="2055.5359"
+           style="stroke-width:0.92418885">The</tspan><tspan
+           sodipodi:role="line"
+           x="1900.0522"
+           y="2086.3423"
+           style="stroke-width:0.92418885"
+           id="tspan6331">subdivision of goals</tspan><tspan
+           sodipodi:role="line"
+           x="1900.0522"
+           y="2117.1484"
+           style="stroke-width:0.92418885"
+           id="tspan6333">in Fig. 5 makes sense</tspan><tspan
+           sodipodi:role="line"
+           x="1900.0522"
+           y="2147.9548"
+           style="stroke-width:0.92418885"
+           id="tspan6335">because we must argue</tspan><tspan
+           sodipodi:role="line"
+           x="1900.0522"
+           y="2178.761"
+           style="stroke-width:0.92418885"
+           id="tspan6337">that each requirement of</tspan><tspan
+           sodipodi:role="line"
+           x="1900.0522"
+           y="2209.5674"
+           style="stroke-width:0.92418885"
+           id="tspan6339">the cloud monitor is</tspan><tspan
+           sodipodi:role="line"
+           x="1900.0522"
+           y="2240.3735"
+           style="stroke-width:0.92418885"
+           id="tspan6341">implemented</tspan><tspan
+           sodipodi:role="line"
+           x="1903.9752"
+           y="2271.1799"
+           style="stroke-width:0.92418885"
+           id="tspan6343">correctly in the </tspan><tspan
+           sodipodi:role="line"
+           x="1900.0522"
+           y="2301.9863"
+           style="stroke-width:0.92418885"
+           id="tspan6345">system.</tspan></text>
+      <path
+         style="fill:none;stroke:#000000;stroke-width:3.72016811;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker6634)"
+         d="m 1589.482,1434.7907 c 43.9009,31.4224 98.7581,47.2103 152.646,43.9316 29.3586,-1.7863 58.0727,-8.9946 87.0195,-14.2098 28.9468,-5.2153 58.8828,-8.4253 87.6347,-2.225 33.9718,7.3259 64.8405,28.141 84.3669,56.8894"
+         id="path6347"
+         inkscape:connector-curvature="0"
+         inkscape:path-effect="#path-effect6349"
+         inkscape:original-d="m 1589.482,1434.7907 c 50.883,14.643 101.765,29.2868 152.646,43.9316 50.881,14.6446 116.4372,-10.9574 174.6542,-16.4348 58.2171,-5.4774 56.2456,37.9254 84.3669,56.8894" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:3.72016811;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker6626)"
+         d="m 1589.482,1434.7907 c 17.1968,21.5394 39.153,39.2577 63.8388,51.5168 35.4824,17.6208 76.2427,24.0284 109.5289,45.5114 19.737,12.7383 36.0952,30.4383 48.2064,50.5662 12.1113,20.1279 20.0389,42.6436 24.3195,65.741 7.2075,38.8909 4.1579,79.0342 -2.6925,117.9895 -6.8504,38.9554 -17.4457,77.1501 -25.4298,115.889 -22.8699,110.965 -24.0314,226.3614 -3.3996,337.7642"
+         id="path6355"
+         inkscape:connector-curvature="0"
+         inkscape:path-effect="#path-effect6357"
+         inkscape:original-d="m 1589.482,1434.7907 c 21.2806,17.1714 42.5602,34.3437 63.8388,51.5168 21.2786,17.1731 73.0203,30.3401 109.5289,45.5114 36.5086,15.1714 48.3516,77.5373 72.5259,116.3072 24.1743,38.7698 -18.7472,155.9181 -28.1223,233.8785 -9.3751,77.9603 -2.2654,225.1752 -3.3996,337.7642" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:3.72016811;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker6630)"
+         d="m 1589.482,1434.7907 c 13.9285,14.6569 30.6682,26.6326 49.0376,35.0821 26.2675,12.0824 55.2404,16.8023 83.879,20.7766 28.6386,3.9742 57.6383,7.391 84.8547,17.1496 16.5327,5.9279 32.8532,14.6872 42.9235,29.0768 8.2087,11.7295 11.5601,26.266 12.299,40.5635 0.7389,14.2975 -0.9527,28.5916 -1.9382,42.8742 -6.8183,98.8157 21.3789,199.6954 78.4464,280.6542"
+         id="path6359"
+         inkscape:connector-curvature="0"
+         inkscape:path-effect="#path-effect6361"
+         inkscape:original-d="m 1589.482,1434.7907 c 16.3469,11.6931 32.6927,23.3872 49.0376,35.0821 16.3449,11.6948 112.4901,25.2833 168.7337,37.9262 56.2436,12.6429 28.6167,19.3837 42.9235,29.0768 14.3068,9.6931 6.9082,55.6243 10.3608,83.4377 3.4527,27.8134 52.2986,187.1019 78.4464,280.6542" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:3.72016811;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker6646)"
+         d="m 1589.482,1434.7907 c -0.023,13.8053 3.735,27.5983 10.7586,39.4834 7.0237,11.885 17.2936,21.83 29.3983,28.468 14.2684,7.8245 30.5659,10.9416 45.8837,16.4348 39.0821,14.0155 71.604,44.0308 91.3936,80.5303 19.7896,36.4996 27.2277,79.0809 24.0558,120.4788 -5.1391,67.0723 -38.4979,131.5309 -90.2874,174.4606"
+         id="path6640"
+         inkscape:connector-curvature="0"
+         inkscape:path-effect="#path-effect6642"
+         inkscape:original-d="m 1589.482,1434.7907 c 13.3866,22.6497 26.7722,45.3001 40.1569,67.9514 13.3846,22.6514 30.5901,10.9557 45.8837,16.4348 15.2936,5.4791 76.9673,134.0052 115.4494,201.0091 38.4821,67.0038 -60.1906,116.3062 -90.2874,174.4606" />
+    </g>
+    <path
+       d="m 450.55669,2400.8501 v 0 c 0,-110.843 77.802,-200.6992 173.7755,-200.6992 v 0 c 46.08808,0 90.2886,21.145 122.87776,58.7834 32.58927,37.6384 50.89764,88.6871 50.89764,141.9158 v 0 c 0,110.8431 -77.8019,200.6992 -173.7754,200.6992 v 0 c -95.9735,0 -173.7755,-89.8561 -173.7755,-200.6992 z"
+       id="path113-7"
+       inkscape:connector-curvature="0"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.28798056;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:26.66666603px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-linecap:square;stroke-miterlimit:10"
+       x="627.05219"
+       y="2279.4658"
+       id="text4816-0"><tspan
+         sodipodi:role="line"
+         x="627.05219"
+         y="2279.4658"
+         id="tspan4844-8">Testing the cloud</tspan><tspan
+         sodipodi:role="line"
+         x="627.05219"
+         y="2312.7991"
+         id="tspan6111">monitor's end points</tspan><tspan
+         sodipodi:role="line"
+         x="627.05219"
+         y="2346.1326"
+         id="tspan6115">and data collection</tspan><tspan
+         sodipodi:role="line"
+         x="627.05219"
+         y="2379.4658"
+         id="tspan6119">functions show that all</tspan><tspan
+         sodipodi:role="line"
+         x="627.05219"
+         y="2412.7991"
+         id="tspan6121">functionality performs</tspan><tspan
+         sodipodi:role="line"
+         x="627.05219"
+         y="2446.1326"
+         id="tspan6123">according to</tspan><tspan
+         sodipodi:role="line"
+         x="627.05219"
+         y="2479.4658"
+         id="tspan6125">specification. Observed</tspan><tspan
+         sodipodi:role="line"
+         x="627.05219"
+         y="2512.7991"
+         id="tspan6127">during runtime</tspan></text>
   </g>
 </svg>
