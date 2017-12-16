@@ -6,7 +6,7 @@ function requestGraph() {
             $("#graph-container").html(response);
 
             // This is the refresh
-            setTimeout(requestGraph,5000);
+            setTimeout(requestGraph,3000);
         },
         cache: false
     })
@@ -18,15 +18,17 @@ function requestAlerts() {
         success: function(response) {
             var html = "<tr>"
             //debugger
+            console.log(response)
+            $("#alert_body").empty();
             for(var i in response) {
                 alert = response[i]
                 // Fix how the html gets generated once you know the format of the alerts
-                html = "<tr><td>" + alert["id"] + "</td><td>" + alert["one"] + "</td><td>" + alert["two"] + "</td><td>" + alert["three"] + "</td><td>" + alert["four"] + "</td></tr>";
+                html = "<tr><td>" + alert["timestamp"] + "</td><td>" + alert["type"] + "</td></tr>";
                 $("#alert_body").append(html)
             }
 
             // This is the refresh
-            setTimeout(requestAlerts,5000);
+            setTimeout(requestAlerts,3000);
         },
         cache: false
     })
