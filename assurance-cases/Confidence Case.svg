@@ -8,14 +8,17 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    version="1.1"
-   viewBox="0 0 1797.1054 2416.9218"
+   viewBox="0 0 2223.0964 2416.9218"
    stroke-miterlimit="10"
    id="svg233"
    sodipodi:docname="Confidence Case.svg"
    inkscape:version="0.92.1 r15371"
-   width="1797.1055"
+   width="2223.0964"
    height="2416.9219"
-   style="fill:none;stroke:none;stroke-linecap:square;stroke-miterlimit:10">
+   style="fill:none;stroke:none;stroke-linecap:square;stroke-miterlimit:10"
+   inkscape:export-filename="/home/arch/Documents/classes/F2017/cis541/cis541final/assurance-cases/Confidence Case.png"
+   inkscape:export-xdpi="200"
+   inkscape:export-ydpi="200">
   <metadata
      id="metadata239">
     <rdf:RDF>
@@ -30,6 +33,64 @@
   </metadata>
   <defs
      id="defs237">
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker8862"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path8860"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker8858"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path8856"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker8854"
+       style="overflow:visible"
+       inkscape:isstock="true"
+       inkscape:collect="always">
+      <path
+         id="path8852"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect8850"
+       is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect8846"
+       is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect8842"
+       is_visible="true" />
     <marker
        inkscape:stockid="Arrow1Mend"
        orient="auto"
@@ -370,12 +431,12 @@
      id="namedview235"
      showgrid="false"
      inkscape:zoom="0.33781036"
-     inkscape:cx="1306.6856"
-     inkscape:cy="1152.257"
+     inkscape:cx="1701.5941"
+     inkscape:cy="1312.6856"
      inkscape:window-x="1920"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="g6130"
+     inkscape:current-layer="g231"
      fit-margin-top="0"
      fit-margin-left="0"
      fit-margin-right="0"
@@ -391,7 +452,7 @@
   <g
      clip-path="url(#p.0)"
      id="g231"
-     transform="translate(-443.63308,-185.27148)">
+     transform="translate(-17.641999,-185.27148)">
     <path
        d="m 1039.0727,185.77148 h 233.0709 v 107.30709 h -233.0709 z"
        id="path7"
@@ -800,20 +861,8 @@
        id="text4816-36"><tspan
          sodipodi:role="line"
          x="1601.0828"
-         y="1537.6312"
-         id="tspan4844-9">UPPAAL is an</tspan><tspan
-         sodipodi:role="line"
-         x="1601.0828"
-         y="1570.9646"
-         id="tspan4984">effective modeling tool</tspan><tspan
-         sodipodi:role="line"
-         x="1605.3275"
-         y="1604.2979"
-         id="tspan4986">for testing the properties </tspan><tspan
-         sodipodi:role="line"
-         x="1601.0828"
-         y="1637.6312"
-         id="tspan4988">of our pacemaker</tspan></text>
+         y="1561.225"
+         id="tspan4988" /></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:4.02519703;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker5646)"
        d="m 614.0826,1304.084 v 105.0885"
@@ -1258,6 +1307,68 @@
          inkscape:connector-curvature="0"
          inkscape:path-effect="#path-effect6642"
          inkscape:original-d="m 1589.482,1434.7907 c 13.3866,22.6497 26.7722,45.3001 40.1569,67.9514 13.3846,22.6514 30.5901,10.9557 45.8837,16.4348 15.2936,5.4791 76.9673,134.0052 115.4494,201.0091 38.4821,67.0038 -60.1906,116.3062 -90.2874,174.4606" />
+      <path
+         style="fill:#cfe2f3;fill-rule:evenodd;stroke:none;stroke-width:1.19057631;stroke-linecap:square;stroke-miterlimit:10"
+         inkscape:connector-curvature="0"
+         id="path111-2-1"
+         d="m 18.188468,1658.5721 v 0 c 0,-94.6853 77.823797,-171.443 173.824192,-171.443 v 0 c 46.101,0 90.31391,18.0627 122.91221,50.2145 32.5984,32.1518 50.9119,75.759 50.9119,121.2285 v 0 c 0,94.6853 -77.8237,171.4429 -173.82411,171.4429 v 0 c -96.000395,0 -173.824192,-76.7576 -173.824192,-171.4429 z" />
+      <path
+         d="m 18.237168,1658.5929 v 0 c 0,-94.6738 77.801997,-171.4222 173.775492,-171.4222 v 0 c 46.08808,0 90.28861,18.0605 122.87777,50.2084 32.58927,32.1479 50.89764,75.7499 50.89764,121.2138 v 0 c 0,94.6739 -77.8019,171.4222 -173.77541,171.4222 v 0 c -95.973495,0 -173.775492,-76.7483 -173.775492,-171.4222 z"
+         id="path113-7-5"
+         inkscape:connector-curvature="0"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.1903373;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:24.64503479px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.92418885;stroke-linecap:square;stroke-miterlimit:10"
+         x="179.96971"
+         y="1682.4651"
+         id="text4816-0-5"
+         transform="scale(1.0820299,0.92418887)"><tspan
+           sodipodi:role="line"
+           x="179.96971"
+           y="1682.4651"
+           id="tspan6127-7"
+           style="stroke-width:0.92418885">Testing on the</tspan><tspan
+           sodipodi:role="line"
+           x="179.96971"
+           y="1713.2714"
+           style="stroke-width:0.92418885"
+           id="tspan8795">cloud monitor's end</tspan><tspan
+           sodipodi:role="line"
+           x="183.8927"
+           y="1744.0776"
+           style="stroke-width:0.92418885"
+           id="tspan8797">points and data </tspan><tspan
+           sodipodi:role="line"
+           x="179.96971"
+           y="1774.8839"
+           style="stroke-width:0.92418885"
+           id="tspan8799">collection show that all</tspan><tspan
+           sodipodi:role="line"
+           x="183.8927"
+           y="1805.6903"
+           style="stroke-width:0.92418885"
+           id="tspan8801">functionality performs </tspan><tspan
+           sodipodi:role="line"
+           x="179.96971"
+           y="1836.4966"
+           style="stroke-width:0.92418885"
+           id="tspan8803">according to</tspan><tspan
+           sodipodi:role="line"
+           x="179.96971"
+           y="1867.3029"
+           style="stroke-width:0.92418885"
+           id="tspan8805">specification. This is</tspan><tspan
+           sodipodi:role="line"
+           x="179.96971"
+           y="1898.1091"
+           style="stroke-width:0.92418885"
+           id="tspan8807">observed during</tspan><tspan
+           sodipodi:role="line"
+           x="179.96971"
+           y="1928.9154"
+           style="stroke-width:0.92418885"
+           id="tspan8809">runtime.</tspan></text>
     </g>
     <path
        d="m 450.55669,2400.8501 v 0 c 0,-110.843 77.802,-200.6992 173.7755,-200.6992 v 0 c 46.08808,0 90.2886,21.145 122.87776,58.7834 32.58927,37.6384 50.89764,88.6871 50.89764,141.9158 v 0 c 0,110.8431 -77.8019,200.6992 -173.7754,200.6992 v 0 c -95.9735,0 -173.7755,-89.8561 -173.7755,-200.6992 z"
@@ -1302,5 +1413,60 @@
          x="627.05219"
          y="2512.7991"
          id="tspan6127">during runtime</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:26.66666603px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+       x="1595.1667"
+       y="1471.3815"
+       id="text8822"><tspan
+         sodipodi:role="line"
+         id="tspan8820"
+         x="1599.4115"
+         y="1471.3815">The </tspan><tspan
+         sodipodi:role="line"
+         x="1595.1667"
+         y="1504.7148"
+         id="tspan8826">subdivision in</tspan><tspan
+         sodipodi:role="line"
+         x="1595.1667"
+         y="1538.0481"
+         id="tspan8830">Fig. 1 makes sense</tspan><tspan
+         sodipodi:role="line"
+         x="1595.1667"
+         y="1571.3815"
+         id="tspan8832">because we must</tspan><tspan
+         sodipodi:role="line"
+         x="1595.1667"
+         y="1604.7148"
+         id="tspan8834">cover each and every</tspan><tspan
+         sodipodi:role="line"
+         x="1595.1667"
+         y="1638.0481"
+         id="tspan8836">phase of model-driven</tspan><tspan
+         sodipodi:role="line"
+         x="1595.1667"
+         y="1671.3815"
+         id="tspan8838">development</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:4.0253334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker8862)"
+       d="m 614.0826,1304.084 c -67.95798,29.6011 -125.0605,83.4373 -158.60856,149.536 -31.39872,61.8639 -42.05614,134.0335 -29.87882,202.3324 12.17733,68.2989 47.12005,132.3382 97.96436,179.5386"
+       id="path8840"
+       inkscape:connector-curvature="0"
+       inkscape:path-effect="#path-effect8842"
+       inkscape:original-d="m 614.0826,1304.084 c -52.86852,49.8443 -105.73804,99.6896 -158.60856,149.536 -52.87052,49.8463 45.39136,254.5797 68.08554,381.871" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:4.0253334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker8858)"
+       d="m 614.0826,1304.084 c -44.551,21.6052 -94.30971,32.3752 -143.80735,31.1263 -28.04547,-0.7076 -55.88452,-5.1983 -83.92355,-6.1265 -28.03904,-0.9282 -57.01239,1.9632 -81.84994,15.0072 -16.88681,8.8685 -31.35007,22.2987 -41.44337,38.4832"
+       id="path8844"
+       inkscape:connector-curvature="0"
+       inkscape:path-effect="#path-effect8846"
+       inkscape:original-d="m 614.0826,1304.084 c -47.93478,10.3745 -95.87057,20.7499 -143.80735,31.1263 -47.93679,10.3765 -110.51466,5.9195 -165.77349,8.8807 -55.25882,2.9613 -27.62791,25.6545 -41.44337,38.4832" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:4.0253334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker8854)"
+       d="m 614.0826,1304.084 c -41.05082,23.269 -84.30989,42.6403 -129.00615,57.7685 -10.55024,3.5709 -21.20328,6.9149 -31.38068,11.4403 -10.1774,4.5254 -19.93632,10.2982 -27.82413,18.1621 -14.7098,14.6653 -21.79233,35.5274 -24.11777,56.1682 -2.32544,20.6408 -0.37163,41.4858 0.43584,62.2414 3.7334,95.9649 -17.09012,191.1746 -20.72169,287.1434 -6.0353,159.4903 36.83111,320.5007 121.36987,455.8771"
+       id="path8848"
+       inkscape:connector-curvature="0"
+       inkscape:path-effect="#path-effect8850"
+       inkscape:original-d="m 614.0826,1304.084 c -43.00105,19.2552 -86.0031,38.5113 -129.00615,57.7685 -43.00305,19.2572 -39.46888,19.7339 -59.20481,29.6024 -19.73594,9.8685 -15.78695,78.9388 -23.68193,118.4096 -7.89498,39.4709 -13.81346,191.4279 -20.72169,287.1434 -6.90823,95.7154 80.91425,303.917 121.36987,455.8771" />
   </g>
 </svg>
