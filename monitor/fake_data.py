@@ -36,10 +36,16 @@ client.connect(broker_address, port, 60)
 
 client.loop_start()
 
+data = ""
 while True:
     count = 0
     while count != 20:
-        data = float(count) / 10.0
+        # data = float(count) / 10.0
+        if count % 2 == 0:
+            data = str(count) + "= The heart is beating slow"
+        else:
+            data = str(count) + "= The heart is beating fast"
+
         print("Publishing {0}".format(data))
         client.publish(topic, data, qos=0)
         count += 1

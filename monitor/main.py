@@ -6,6 +6,7 @@ import paho.mqtt.client as mqtt
 import time
 import os
 from flask.json import jsonify
+from datetime import datetime
 
 import matplotlib
 matplotlib.use('Agg')
@@ -52,34 +53,56 @@ patient_data = {
 
 }
 
+# Graph counter
+path = 'static/graphs/real'
+
+def clear_graphs():
+    for f in os.listdir(path):
+        os.remove(path + '/' + f)
+
+# Date format
+date_format = "%a %b %d %H:%M:%S %Y"
+
 
 # Global variables for graphing
-LRL = 1500.0 # milliseconds
-URL = 600.0 # milliseconds
+LRL = 1500.0  # milliseconds
+URL = 600.0  # milliseconds
 
-x = [float(i+1) for i in range(5)]
+x = [float(-1 * i) for i in range(5,0,-1)]
+# x = [0.0]
+# data_size = 30
 
 # Conversion to beats per minute
-LRL_data = [1000.0/LRL for i in range(5)]
-URL_data = [1000.0/URL for i in range(5)]
+LRL_data = [(60*1000.0)/LRL for i in range(5)]
+URL_data = [(60*1000.0)/URL for i in range(5)]
+
+# LRL_data = [(60*1000.0)/LRL]
+# URL_data = [(60*1000.0)/URL]
 fig = plt.figure()
 
-y = [0.0 for i in range(5)]
+heart_data = [0.0 for i in range(5)]
 
 
 # Global variable for alerts
-notifications = []
+slow_alarms = ["" for i in range(5)]
+fast_alarms = ["" for i in range(5)]
+alarms = ["" for i in range(5)]
 
-
+# MQTT
 broker_address = "35.188.242.1"
 port = 1883
 timeout = 60
 username = "mbed"
 password = "homework"
 uuid = "1234"
-# topic = "cis541/hw-mqt/26013f37-08009003ae2a90e552b1fc8ef5001e87/echo"
-topic = "group8/data"
+data_topic = "group8/data"
+fast_alert_topic = "group8/slowHeartBeatAlarm"
+slow_alert_topic = "group8/fastHeartBeatAlarm"
 qos = 0
+
+def add_data(data, payload):
+    data.pop(0)
+    data.append(payload)
 
 
 
@@ -90,14 +113,36 @@ def on_connect(client, userdata, flags, rc):
 
     # Subscribing in on_connect() means that if we lose the connection and
     # reconnect then subscriptions will be renewed.
-    client.subscribe(topic)
+    client.subscribe(data_topic)
+    client.subscribe(fast_alert_topic)
+    client.subscribe(slow_alert_topic)
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
-    y.pop(0)
-    # print(float(msg.payload))
-    y.append(float(msg.payload))
-    print(msg.topic+" "+str(msg.payload) + '\n')
+
+    print(repr(msg.payload))
+    payload = msg.payload.strip('\x00')
+    payload = payload.replace('\n',' ')
+    
+    # print(repr(payload))
+
+    # if "slow" in payload:
+    #     add_data(slow_alarms, payload)
+    # elif "fast" in payload:
+    #     add_data(fast_alarms, payload)
+    if "slow" in payload or "fast" in payload:
+        pieces = payload.split('=')
+        pieces[0] = datetime.now().strftime(date_format)
+        new_alarm = pieces[0] + ' =' + pieces[1]
+        alarms.append(new_alarm)
+    else:
+        pieces = payload.split('=')
+        timestamp = float(pieces[0])
+        heart_val = float(pieces[1])
+
+        add_data(x, timestamp)
+        add_data(heart_data, heart_val)
+
 
 def on_disconnect(client, userdata, rc):
     print("Closing data file...")
@@ -113,10 +158,7 @@ client.loop_start()
 
 nav = Nav()
 
-def delete_old_graphs():
-    files = [f for f in os.listdir('./static/graphs')]
-    for f in files:
-        os.remove(f)
+
 
 def get_patients():
     patients = []
@@ -135,7 +177,7 @@ def mynavbar():
     return Navbar(
         'Pacemaker Project',
         View('Dashboard', 'index'),
-        View('About', 'about')
+        # View('About', 'about')
     )
 
 app = Flask(__name__)
@@ -166,21 +208,51 @@ def about():
     return render_template('about.html', message='About page under construction')
 
 @app.route('/alerts')
-def alerts_ep():
-    for i in range(10):
+def alarms_ep():
+    # Combine alarms and take out empty strings
+    # all_alarms = filter(lambda x: x != "", slow_alarms + fast_alarms)
+    all_alarms = filter(lambda x: x != "", alarms)
+
+    notifications = []
+
+    alarm_message = ""
+    for i in range(len(all_alarms)):
+        # if "slow" in all_alarms[i]:
+        #     alarm_message = "slow"
+        # else:
+        #     alarm_message = "fast"
+
+        timestamp = all_alarms[i].split('=')[0].strip()
+        alarm_message = all_alarms[i].split('=')[1].strip()
+
+
+        timestamp = datetime.strptime(timestamp, date_format)
+
         notifications.append({
-            'id': i,
-            'one': 'one',
-            'two': 'two',
-            'three': 'three',
-            'four': 'four'
+            'timestamp': timestamp,
+            'type': alarm_message
         })
+
+    # def compare(a, b):
+    #     if a["timestamp"] > b["timestamp"]:
+    #         return 1
+    #     elif a["timestamp"] == b["timestamp"]:
+    #         return 0
+    #     else:
+    #         return -1
+
+    # notifications.sort(compare)
+    notifications.sort()
+
+    notifications.reverse()
+
 
     return jsonify(notifications)
 
 @app.route('/graph')
 def graph_ep():
-    print(y)
+    clear_graphs()
+
 
     fig = plt.figure()
 
@@ -194,7 +266,7 @@ def graph_ep():
     # y_axis = [float(i)/10.0 for i in range(0,16,1)]
 
 
-    ax1.plot(x, y, marker='o', label="Heart Data")
+    ax1.plot(x, heart_data, marker='o', label="Heart Data")
     ax1.plot(x, LRL_data, marker='o', label="Lower Rate Limit")
     ax1.plot(x, URL_data, marker='o', label="Upper Rate Limit")
     ax1.set(xlabel="Time",
@@ -206,13 +278,13 @@ def graph_ep():
     ax1.grid(True)
 
     # Change y axis
-    ax1.set_ylim(0,2.5)
+    axis_height = 150
+    ax1.set_ylim(0.0,float(axis_height))
     x1, x2, y1, y2 = plt.axis()
-    plt.axis((x1,x2,0.0, 2.5))
-    y_axis = [float(i)/10.0 for i in range(0,25,2)]
+    plt.axis((x1,x2,0.0, float(axis_height)))
+    y_axis = [float(i) for i in range(0,axis_height,10)]
     plt.yticks(y_axis)
 
-    # ani = animation.FuncAnimation(fig, animate, interval=1000)
 
     time_string = str(int(time.time()))
     file_name = 'static/graphs/real/graph' + time_string + '.png'
@@ -225,3 +297,5 @@ def graph_ep():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+# done
